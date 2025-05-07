@@ -10,10 +10,6 @@
           warning_threshold: 90
           critical_threshold: 95
       register: cpu_result
-
-    - name: Display CPU health check results
-      ansible.builtin.debug:
-        var: cpu_result
     
     # - name: Monitor memory utilization
     #   ansible.builtin.include_role:
@@ -25,7 +21,3 @@
     #     min_cache: 50
     #     ignore_errors: false
     #   register: memory_result
-
-    # - name: Display memory health check results
-    #   ansible.builtin.debug:
-    #     var: memory_result.health_checks
