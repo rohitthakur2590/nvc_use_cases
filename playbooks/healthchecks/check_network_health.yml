@@ -9,7 +9,7 @@
           details: true
           warning_threshold: 90
           critical_threshold: 95
-      register: result
+      register: cpu_result
 
     - name: Display CPU health check results
       ansible.builtin.debug:
