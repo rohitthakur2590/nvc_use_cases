@@ -11,6 +11,6 @@
             origin:
               user:
                 name: "rohitthakur2590"
-                email: "rohitthakur2590" 
+                email: "rohitthakur2590@outlook.com" 
               url: "https://github.com/rohitthakur2590/nvc_use_cases.git"
               token: "{{ TOKEN }}"
