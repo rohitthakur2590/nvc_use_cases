@@ -1,0 +1,17 @@
+- name: Run Network Healthchecks
+  hosts: network
+  tasks:
+    - name: Monitor memory utilization
+      ansible.builtin.include_role:
+        name: network.healthchecks.memory
+      vars:
+        critical_threshold: 80
+        min_free_memory: 100
+        min_buffers: 50
+        min_cache: 50
+        ignore_errors: false
+      register: memory_result
+
+    - name: Display memory health check results
+      ansible.builtin.debug:
+        var: memory_result.health_checks
