@@ -6,6 +6,10 @@
         name: network.reports.persist
       vars:
         format: json
+        resources:
+          - interfaces
+          - l3_interfaces
+          - l2_interfaces
         data_store:
           scm:
             origin:
