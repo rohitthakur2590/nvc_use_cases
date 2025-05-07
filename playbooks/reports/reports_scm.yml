@@ -12,6 +12,7 @@
           - l2_interfaces
         data_store:
           scm:
+            parent_directory: "/home/rhel"
             origin:
               user:
                 name: "rohitthakur2590"
