@@ -13,7 +13,7 @@
 
     - name: Display CPU health check results
       ansible.builtin.debug:
-        var: cpu_result.health_checks
+        var: cpu_result
     
     # - name: Monitor memory utilization
     #   ansible.builtin.include_role:
