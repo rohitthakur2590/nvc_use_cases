@@ -17,5 +17,5 @@
               user:
                 name: "leogallego"
                 email: "993814+leogallego@users.noreply.github.com" 
-              url: "https://github.com/leogallego/aap-network-report.git"
+              url: "https://github.com/leogallego/nvc_use_cases.git"
               token: "{{ TOKEN }}"
