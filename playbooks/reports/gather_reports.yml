@@ -1,0 +1,13 @@
+- name: Persist Network Reports
+  hosts: network
+  tasks:
+    - name: Invoke gather role
+      ansible.builtin.include_role:
+        name: network.reports.gather
+      vars:
+        format: json
+        resources:
+          - interfaces
+          - l3_interfaces
+          - l2_interfaces
+ 
