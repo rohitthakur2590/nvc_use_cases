@@ -10,7 +10,7 @@
           scm:
             origin:
               user:
-                name: "rohitthakur2590"
-                email: "rohitthakur2590@outlook.com" 
-              url: "https://github.com/rohitthakur2590/nvc_use_cases"
+                name: "leogallego"
+                email: "993814+leogallego@users.noreply.github.com" 
+              url: "https://github.com/leogallego/aap-network-report.git"
               token: "{{ TOKEN }}"
