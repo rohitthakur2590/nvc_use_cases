@@ -8,7 +8,7 @@
         cpu_utilization:
           details: true
           warning_threshold: 90
-          critical_threshold: 95
+          critical_threshold: 0
       register: cpu_result
     
     # - name: Monitor memory utilization
