@@ -10,10 +10,6 @@
           warning_threshold: 90
           critical_threshold: 95
       register: cpu_result
-
-    - name: Debug
-      ansible.builtin.debug:
-        msg: "{{ cpu_result }}"
     
     # - name: Monitor memory utilization
     #   ansible.builtin.include_role:
