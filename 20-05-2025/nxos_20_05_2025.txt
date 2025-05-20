@@ -1,10 +1,10 @@
 !Command: show running-config
-!Running configuration last done at: Mon May 19 05:49:49 2025
-!Time: Mon May 19 05:50:52 2025
+!Running configuration last done at: Mon May 19 08:09:11 2025
+!Time: Mon May 19 08:25:47 2025
 
 version 10.3(1) Bios:version  
 hostname NXOS-RTR1
-vdc NXOS-SW1 id 1
+vdc NXOS-RTR1 id 1
   limit-resource vlan minimum 16 maximum 4094
   limit-resource vrf minimum 2 maximum 4096
   limit-resource port-channel minimum 0 maximum 511
@@ -777,7 +777,6 @@ rmon event 3 log trap public description ERROR(3) owner PMON@ERROR
 rmon event 4 log trap public description WARNING(4) owner PMON@WARNING
 rmon event 5 log trap public description INFORMATION(5) owner PMON@INFO
 ntp authenticate
-ntp authentication-key 1001 md5 vagwwtKfkv 7
 ntp authentication-key 1002 md5 vagwwtKfkvgthz 7
 ntp logging
 ntp master 2
