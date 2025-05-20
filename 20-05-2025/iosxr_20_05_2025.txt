@@ -1,0 +1,982 @@
+!Command: show running-config
+!Running configuration last done at: Mon May 19 03:38:55 2025
+!Time: Mon May 19 04:06:53 2025
+
+version 10.3(1) Bios:version  
+hostname nxos103
+vdc nxos103 id 1
+  limit-resource vlan minimum 16 maximum 4094
+  limit-resource vrf minimum 2 maximum 4096
+  limit-resource port-channel minimum 0 maximum 511
+  limit-resource m4route-mem minimum 58 maximum 58
+  limit-resource m6route-mem minimum 8 maximum 8
+
+feature nxapi
+feature bash-shell
+feature sftp-server
+feature tacacs+
+cfs eth distribute
+feature ospf
+feature bgp
+feature ospfv3
+feature isis
+feature netconf
+feature pbr
+feature interface-vlan
+feature vn-segment-vlan-based
+feature hsrp
+feature lacp
+feature macsec
+feature lldp
+feature bfd
+feature sla sender
+feature nv overlay
+feature telemetry
+
+no password strength-check
+username admin password 5 $5$PECJGJ$4DTnZ1tDFuh2igJ8U38dn3seMweSv.48by20jZSXcc6  role network-admin
+username cisco password 5 $5$PCJGDB$MAJUNn8qQRM4Q.1YCkNky3iQgALNGl7dag8cBD4oGe4  role network-admin
+username cisco passphrase  lifetime 99999 warntime 14 gracetime 3
+ip domain-lookup
+tacacs-server key 7 "JpdmJb8Fw62Q8u9K"
+ip tacacs source-interface mgmt0
+tacacs-server timeout 2
+tacacs-server host 151.140.2.230 
+tacacs-server host 151.140.107.1 
+aaa group server tacacs+ hdtacacs 
+    server 151.140.2.230 
+    server 151.140.107.1 
+crypto key generate rsa label nxos modulus 2048
+object-group ip address CALL_CENTER_VOICE_NETS
+  10 172.16.40.0 255.255.255.240 
+  20 172.26.50.128 255.255.255.240 
+object-group ip address CORP_PBX_VOICE_NETS
+  10 172.16.208.0 255.255.248.0 
+  20 172.16.224.0 255.255.255.0 
+  30 172.16.225.0 255.255.255.0 
+  40 172.16.227.0 255.255.255.0 
+  50 172.22.122.0 255.255.254.0 
+  60 172.22.124.0 255.255.254.0 
+  70 172.22.126.0 255.255.254.0 
+  80 172.22.128.0 255.255.192.0 
+  90 172.22.192.0 255.255.224.0 
+  100 172.22.224.0 255.255.240.0 
+  110 172.22.232.0 255.255.254.0 
+  120 172.26.50.0 255.255.255.128 
+  130 172.26.226.0 255.255.255.0 
+  140 172.26.232.0 255.255.255.0 
+  150 172.26.236.0 255.255.255.0 
+  160 172.29.162.0 255.255.255.0 
+object-group ip address CROWNBOLT_AIMS2JDE_DC_REALS
+  10 host 10.72.171.112 
+  20 host 10.72.169.41 
+object-group ip address CROWNBOLT_AIMS2JDE_REMOTE_REALS
+  10 host 172.23.244.12 
+  20 host 172.23.244.253 
+  30 host 172.23.212.146 
+  40 host 172.23.228.6 
+  50 host 172.23.240.6 
+  60 host 172.23.240.9 
+object-group ip address CROWNBOLT_DATASTAGE_REALS
+  10 host 10.72.171.42 
+object-group ip address CROWNBOLT_JDE_REALS
+  10 host 10.72.171.81 
+  20 host 10.72.168.30 
+object-group ip address THD_LB_VIPS
+  10 165.130.84.0 255.255.255.0 
+  20 165.130.157.0 255.255.255.0 
+  30 165.130.163.0 255.255.255.0 
+  40 165.130.166.0 255.255.255.0 
+  50 165.130.167.0 255.255.255.0 
+  60 165.130.170.0 255.255.255.0 
+  70 165.130.174.0 255.255.255.0 
+  80 165.130.175.0 255.255.255.0 
+  90 165.130.178.0 255.255.255.0 
+  100 165.130.180.0 255.255.255.0 
+  110 165.130.232.0 255.255.255.0 
+  120 165.130.234.0 255.255.255.0 
+object-group ip address THD_SERVER_REALS
+  10 151.140.0.0 255.255.128.0 
+  20 10.56.0.0 255.248.0.0 
+  30 10.64.0.0 255.248.0.0 
+  40 10.72.0.0 255.248.0.0 
+ip access-list BNE_list
+  10 permit udp any eq 1719 any 
+ip access-list DRC-HSCELG31-32-IPV4-IN
+  10 remark Inbound NMNET ACL
+  20 remark !
+  30 remark PERMIT P2P & BGP
+  40 permit ip 10.249.241.150/31 10.249.241.150/31 
+  50 permit ip 10.249.241.158/31 10.249.241.158/31 
+  60 permit icmp 10.0.0.0/8 10.0.0.0/8 
+  70 remark SSH
+  80 remark ZTNA-Zscaler Private Access (APM0500716)
+  90 remark Contact ZscalerTeam@T-Mobile.com
+  100 permit tcp 10.247.14.0/24 any eq 22 
+  110 permit tcp 10.237.55.128/26 any eq 22 
+  120 permit tcp 10.238.168.0/24 any eq 22 
+  130 permit tcp 10.238.169.0/24 any eq 22 
+  140 permit tcp 10.238.12.0/24 any eq 22 
+  150 remark !
+  160 remark Appgate Appgate SDP (APM0103345)
+  170 remark Contact SDPSupportCoreTeam@T-Mobile.com
+  180 permit tcp 10.247.12.0/24 any eq 22 
+  190 permit tcp 10.247.13.0/24 any eq 22 
+  200 permit tcp 10.237.58.0/24 any eq 22 
+  210 permit tcp 10.237.59.0/24 any eq 22 
+  220 remark !
+  230 remark NSO/SevOne/Cacti
+  240 remark Network Services Orchestrator (APM0102514)
+  250 remark Contact PIAOP@T-Mobile.com
+  260 remark EIS Performance Management Tools (APM0103067)
+  270 remark Contact EISPerformance@T-Mobile.com
+  280 remark Cacti(APM0103699)
+  290 remark Contact nppipperformance@t-mobile.com
+  300 permit tcp 10.247.137.0/24 any eq 22 
+  310 permit tcp 10.251.82.0/24 any eq 22 
+  320 permit tcp 10.251.227.0/26 any eq 22 
+  330 permit tcp 10.252.159.0/26 any eq 22 
+  340 permit tcp 10.252.196.128/29 any eq 22 
+  350 permit tcp 10.247.67.0/24 any eq 22 
+  360 permit tcp 10.246.95.9/32 any eq 22 
+  370 permit tcp 10.247.93.0/25 any eq 22 
+  380 permit tcp 10.254.246.59/32 any eq 22 
+  390 permit tcp 10.252.158.0/24 any eq 22 
+  400 permit tcp 10.254.247.0/24 any eq 22 
+  410 permit tcp 10.251.226.0/24 any eq 22 
+  420 permit tcp 10.246.89.240/28 any eq 22 
+  430 permit tcp 10.251.83.0/24 any eq 22 
+  440 permit tcp 10.247.136.0/24 any eq 22 
+  450 permit tcp 10.252.231.0/24 any eq 22 
+  460 permit tcp 10.253.129.0/24 any eq 22 
+  470 permit tcp 10.254.246.0/28 any eq 22 
+  480 permit tcp 10.254.199.252/32 any eq 22 
+  490 permit tcp 10.255.51.91/32 any eq 22 
+  500 remark !
+  510 remark tenable/MFNA/CyberArk/AAP
+  520 remark Tenable.io (APM0103909)
+  530 remark contact VulnerabilityManagement2@T-Mobile.com
+  540 remark MFNA (APM0100197)
+  550 remark Contact ESD_DevOps_NA@T-Mobile.com
+  560 remark CyberArk (APM0102526)
+  570 remark Contact
+  580 remark Ansible Automation Platform (APM0103826)
+  590 remark Contact ISA-Platform_Support@T-Mobile.com
+  600 permit tcp 10.247.117.0/26 any eq 22 
+  610 permit tcp 10.255.233.0/26 any eq 22 
+  620 permit tcp 10.236.16.0/24 any eq 22 
+  630 permit tcp 10.236.245.0/26 any eq 22 
+  640 permit tcp 10.237.32.0/26 any eq 22 
+  650 permit tcp 10.254.201.0/24 any eq 22 
+  660 permit tcp 10.247.92.0/26 any eq 22 
+  670 permit tcp 10.253.134.0/26 any eq 22 
+  680 permit tcp 10.251.106.0/24 any eq 22 
+  690 permit tcp 10.255.234.64/26 any eq 22 
+  700 permit tcp 10.255.91.0/24 any eq 22 
+  710 permit tcp 10.254.197.128/26 any eq 22 
+  720 permit tcp 10.254.195.0/26 any eq 22 
+  730 permit tcp 10.254.193.0/25 any eq 22 
+  740 permit tcp 10.255.143.0/24 any eq 22 
+  750 permit tcp 10.253.91.0/24 any eq 22 
+  760 permit tcp 10.251.239.0/24 any eq 22 
+  770 remark !
+  780 remark NetBrain (APM0102333)
+  790 remark contact PIAOP@T-Mobile.com
+  800 permit tcp 10.251.210.186/32 any eq 22 
+  810 permit tcp 10.251.242.62/32 any eq 22 
+  820 permit tcp 10.255.175.1/32 any eq 22 
+  830 permit tcp 10.255.131.161/32 any eq 22 
+  840 permit tcp 10.251.211.0/25 any eq 22 
+  850 permit tcp 10.255.174.128/25 any eq 22 
+  860 remark !
+  870 remark LMTS
+  880 remark Last Mile Transport Scripting (APM0102982)
+  890 remark contact
+ip access-list EQ-QOSa_CALL_CENTER_VOICE_TRAFFIC
+  10 permit udp addrgroup CALL_CENTER_VOICE_NETS range 16384 32767 any 
+ip access-list EQ-QOSa_CISCO_VOICE_MEDIA
+  10 permit udp addrgroup CISCO_VOICE_SUBNETS range 16384 32767 any 
+ip access-list EQ-QOSa_CORP_PBX_VOICE_TRAFFIC
+  10 permit udp addrgroup CORP_PBX_VOICE_NETS range 16384 32767 any 
+ip access-list EQ-QOSa_CROWNBOLT_AIMS2JDE
+  10 permit tcp addrgroup CROWNBOLT_AIMS2JDE_DC_REALS addrgroup CROWNBOLT_AIMS2JDE_REMOTE_REALS 
+  20 permit tcp addrgroup CROWNBOLT_AIMS2JDE_REMOTE_REALS addrgroup CROWNBOLT_AIMS2JDE_DC_REALS 
+ip access-list EQ-QOSa_CROWNBOLT_DATASTAGE
+  10 permit tcp addrgroup CROWNBOLT_DATASTAGE_REALS eq 1433 any 
+  20 permit tcp addrgroup CROWNBOLT_DATASTAGE_REALS any eq 1433 
+ip access-list EQ-QOSa_CROWNBOLT_JDE
+  10 permit tcp addrgroup CROWNBOLT_JDE_REALS eq 443 any 
+  20 permit tcp addrgroup CROWNBOLT_JDE_REALS eq 9039 any 
+ip access-list EQ-QOSa_DFC_PRINTING
+  10 permit tcp 151.140.79.152/32 eq lpd any 
+  20 permit tcp 151.140.79.152/32 eq 9100 any 
+  40 permit tcp 151.140.102.51/32 eq lpd any 
+  50 permit tcp 151.140.102.51/32 eq 9100 any 
+  70 permit tcp 151.140.79.152/32 any eq lpd 
+  80 permit tcp 151.140.79.152/32 any eq 9100 
+  100 permit tcp 151.140.102.51/32 any eq lpd 
+  110 permit tcp 151.140.102.51/32 any eq 9100 
+ip access-list EQ-QOSa_LOGISTICS_WEBAPPS
+  10 permit tcp addrgroup THD_LB_VIPS eq www any 
+  20 permit tcp addrgroup THD_LB_VIPS eq 443 any 
+  30 permit tcp addrgroup THD_SERVER_REALS eq www any 
+  40 permit tcp addrgroup THD_SERVER_REALS eq 443 any 
+  50 permit tcp addrgroup THD_LB_VIPS any eq www 
+  60 permit tcp addrgroup THD_LB_VIPS any eq 443 
+  70 permit tcp addrgroup THD_SERVER_REALS any eq www 
+  80 permit tcp addrgroup THD_SERVER_REALS any eq 443 
+  90 permit icmp 151.140.64.246/32 any 
+ip access-list EQ-QOSa_SOPE_ROPE
+  10 permit tcp 165.130.84.129/32 eq www any 
+  20 permit tcp 165.130.84.129/32 eq 443 any 
+  30 permit tcp 172.28.126.20/32 eq www any 
+  40 permit tcp 172.28.126.20/32 eq 443 any 
+  50 permit tcp 172.28.126.21/32 eq www any 
+  60 permit tcp 172.28.126.21/32 eq 443 any 
+  70 permit tcp 172.28.126.33/32 eq www any 
+  80 permit tcp 172.28.126.33/32 eq 443 any 
+  90 permit tcp 172.28.126.43/32 eq www any 
+  100 permit tcp 172.28.126.43/32 eq 443 any 
+  110 permit tcp 172.28.126.73/32 eq www any 
+  120 permit tcp 172.28.126.73/32 eq 443 any 
+  130 permit tcp 172.28.126.74/32 eq www any 
+  140 permit tcp 172.28.126.74/32 eq 443 any 
+  150 permit tcp 172.28.126.77/32 eq www any 
+  160 permit tcp 172.28.126.77/32 eq 443 any 
+  170 permit tcp 172.28.126.146/32 eq www any 
+  180 permit tcp 172.28.126.146/32 eq 443 any 
+  190 permit tcp 172.28.126.147/32 eq www any 
+  200 permit tcp 172.28.126.147/32 eq 443 any 
+  210 permit tcp 172.28.126.148/32 eq www any 
+  220 permit tcp 172.28.126.148/32 eq 443 any 
+  230 permit tcp 172.28.126.168/32 eq www any 
+  240 permit tcp 172.28.126.168/32 eq 443 any 
+  250 permit tcp 172.28.126.169/32 eq www any 
+  260 permit tcp 172.28.126.169/32 eq 443 any 
+  270 permit tcp 165.130.167.117/32 eq www any 
+  280 permit tcp 165.130.167.117/32 eq 443 any 
+  290 permit tcp 165.130.167.119/32 eq www any 
+  300 permit tcp 165.130.167.119/32 eq 443 any 
+ip access-list EQ-QOSa_STORE_VOICE_TRAFFIC
+  10 permit udp 10.125.0.0 0.0.255.255 range 16384 32767 any 
+ip access-list EQ-QOSa_VOCOLLECT
+  10 permit tcp addrgroup THD_LB_VIPS eq 19999 any 
+  20 permit tcp addrgroup THD_SERVER_REALS eq 19999 any 
+ip access-list EQ-QOSa_VOICE_SIGNALING_DST
+  10 permit udp any any eq 1719 
+  20 permit tcp any any eq 1720 
+  30 permit tcp any any eq 2945 
+  40 permit tcp any any eq 5060 
+  50 permit tcp any any eq 5061 
+  60 permit tcp any any eq 2000 
+ip access-list EQ-QOSa_VOICE_SIGNALING_SRC
+  10 permit udp any eq 1719 any 
+  20 permit tcp any eq 1720 any 
+  30 permit tcp any eq 2945 any 
+  40 permit udp any eq 5060 any 
+  50 permit tcp any eq 5061 any 
+  60 permit tcp any eq 2000 any 
+ip access-list EQ-QOSa_WCS_WMS
+  10 permit tcp addrgroup THD_LB_VIPS eq 30001 any 
+  20 permit tcp addrgroup THD_SERVER_REALS eq 30001 any 
+ip access-list EQ-QOSa_WM
+  10 permit tcp addrgroup THD_LB_VIPS eq 20501 any 
+  20 permit tcp addrgroup THD_SERVER_REALS eq 20501 any 
+  30 permit tcp addrgroup THD_LB_VIPS eq 20001 any 
+  40 permit tcp addrgroup THD_SERVER_REALS eq 20001 any 
+ip access-list EQ-QOSa_WMS_PRINTING
+  10 permit tcp 165.130.174.188/32 eq telnet any 
+  20 permit tcp 151.140.78.143/32 eq lpd any 
+  30 permit tcp 151.140.78.143/32 eq 9100 any 
+  50 permit tcp 151.140.78.244/32 eq lpd any 
+  60 permit tcp 151.140.78.244/32 eq 9100 any 
+  80 permit tcp 151.140.12.252/32 eq lpd any 
+  90 permit tcp 151.140.12.252/32 eq 9100 any 
+  110 permit tcp 151.140.102.34/32 eq lpd any 
+  120 permit tcp 151.140.102.34/32 eq 9100 any 
+  140 permit tcp 151.140.48.120/32 eq lpd any 
+  150 permit tcp 151.140.48.120/32 eq 9100 any 
+  170 permit tcp 165.130.219.20/32 eq lpd any 
+  180 permit tcp 165.130.219.20/32 eq 9100 any 
+  200 permit tcp 151.140.78.143/32 any eq lpd 
+  210 permit tcp 151.140.78.143/32 any eq 9100 
+  230 permit tcp 151.140.78.244/32 any eq lpd 
+  240 permit tcp 151.140.78.244/32 any eq 9100 
+  260 permit tcp 151.140.12.252/32 any eq lpd 
+  270 permit tcp 151.140.12.252/32 any eq 9100 
+  290 permit tcp 151.140.102.34/32 any eq lpd 
+  300 permit tcp 151.140.102.34/32 any eq 9100 
+  320 permit tcp 151.140.48.120/32 any eq lpd 
+  330 permit tcp 151.140.48.120/32 any eq 9100 
+  350 permit tcp 165.130.219.20/32 any eq lpd 
+  360 permit tcp 165.130.219.20/32 any eq 9100 
+ip access-list EQ-QOSa_WMS_RF
+  10 permit tcp addrgroup THD_LB_VIPS eq 22 any 
+  20 permit tcp addrgroup THD_SERVER_REALS eq 22 any 
+ip access-list EQ-QOSa_WYN_DC_TO_REMOTE
+  10 permit tcp addrgroup THD_LB_VIPS any eq 32007 
+  20 permit tcp addrgroup THD_LB_VIPS any eq 32008 
+  30 permit tcp addrgroup THD_LB_VIPS any eq 32009 
+  40 permit tcp addrgroup THD_SERVER_REALS any eq 32007 
+  50 permit tcp addrgroup THD_SERVER_REALS any eq 32008 
+  60 permit tcp addrgroup THD_SERVER_REALS any eq 32009 
+ip access-list EQ-QOSa_WYN_REMOTE_TO_DC
+  10 permit tcp addrgroup THD_LB_VIPS eq 32001 any 
+  20 permit tcp addrgroup THD_LB_VIPS eq 32002 any 
+  30 permit tcp addrgroup THD_LB_VIPS eq 32004 any 
+  40 permit tcp addrgroup THD_SERVER_REALS eq 32001 any 
+  50 permit tcp addrgroup THD_SERVER_REALS eq 32002 any 
+  60 permit tcp addrgroup THD_SERVER_REALS eq 32004 any 
+ip access-list EQ-QOSa_YMS_PING
+  10 permit icmp addrgroup THD_LB_VIPS any 
+ip access-list NEWX
+  10 remark Inbound NMNET ACL
+  20 remark !
+  30 remark PERMIT P2P & BGP
+  40 permit ip 10.249.241.150/31 10.249.241.150/31 
+  50 permit ip 10.249.241.158/31 10.249.241.158/31 
+  60 permit icmp 10.0.0.0/8 10.0.0.0/8 
+  70 remark SSH
+  80 remark ZTNA-Zscaler Private Access (APM0500716)
+  90 remark Contact ZscalerTeam@T-Mobile.com
+  100 permit tcp 10.247.14.0/24 any eq 22 
+  110 permit tcp 10.237.55.128/26 any eq 22 
+  120 permit tcp 10.238.168.0/24 any eq 22 
+  130 permit tcp 10.238.169.0/24 any eq 22 
+  140 permit tcp 10.238.12.0/24 any eq 22 
+  150 remark !
+  160 remark Appgate Appgate SDP (APM0103345)
+  170 remark Contact SDPSupportCoreTeam@T-Mobile.com
+  180 permit tcp 10.247.12.0/24 any eq 22 
+  190 permit tcp 10.247.13.0/24 any eq 22 
+  200 permit tcp 10.237.58.0/24 any eq 22 
+  210 permit tcp 10.237.59.0/24 any eq 22 
+  220 remark !
+  230 remark NSO/SevOne/Cacti
+  240 remark Network Services Orchestrator (APM0102514)
+  250 remark Contact PIAOP@T-Mobile.com
+  260 remark EIS Performance Management Tools (APM0103067)
+  270 remark Contact EISPerformance@T-Mobile.com
+  280 remark Cacti(APM0103699)
+  290 remark Contact nppipperformance@t-mobile.com
+  300 permit tcp 10.247.137.0/24 any eq 22 
+  310 permit tcp 10.251.82.0/24 any eq 22 
+  320 permit tcp 10.251.227.0/26 any eq 22 
+  330 permit tcp 10.252.159.0/26 any eq 22 
+  340 permit tcp 10.252.196.128/29 any eq 22 
+  350 permit tcp 10.247.67.0/24 any eq 22 
+  360 permit tcp 10.246.95.9/32 any eq 22 
+  370 permit tcp 10.247.93.0/25 any eq 22 
+  380 permit tcp 10.254.246.59/32 any eq 22 
+  390 permit tcp 10.252.158.0/24 any eq 22 
+  400 permit tcp 10.254.247.0/24 any eq 22 
+  410 permit tcp 10.251.226.0/24 any eq 22 
+  420 permit tcp 10.246.89.240/28 any eq 22 
+  430 permit tcp 10.251.83.0/24 any eq 22 
+  440 permit tcp 10.247.136.0/24 any eq 22 
+  450 permit tcp 10.252.231.0/24 any eq 22 
+  460 permit tcp 10.253.129.0/24 any eq 22 
+  470 permit tcp 10.254.246.0/28 any eq 22 
+  480 permit tcp 10.254.199.252/32 any eq 22 
+  490 permit tcp 10.255.51.91/32 any eq 22 
+  500 remark !
+  510 remark tenable/MFNA/CyberArk/AAP
+  520 remark Tenable.io (APM0103909)
+  530 remark contact VulnerabilityManagement2@T-Mobile.com
+  540 remark MFNA (APM0100197)
+  550 remark Contact ESD_DevOps_NA@T-Mobile.com
+  560 remark CyberArk (APM0102526)
+  570 remark Contact
+  580 remark Ansible Automation Platform (APM0103826)
+  590 remark Contact ISA-Platform_Support@T-Mobile.com
+  600 permit tcp 10.247.117.0/26 any eq 22 
+  610 permit tcp 10.255.233.0/26 any eq 22 
+  620 permit tcp 10.236.16.0/24 any eq 22 
+  630 permit tcp 10.236.245.0/26 any eq 22 
+  640 permit tcp 10.237.32.0/26 any eq 22 
+  650 permit tcp 10.254.201.0/24 any eq 22 
+  660 permit tcp 10.247.92.0/26 any eq 22 
+  670 permit tcp 10.253.134.0/26 any eq 22 
+  680 permit tcp 10.251.106.0/24 any eq 22 
+  690 permit tcp 10.255.234.64/26 any eq 22 
+  700 permit tcp 10.255.91.0/24 any eq 22 
+  710 permit tcp 10.254.197.128/26 any eq 22 
+  720 permit tcp 10.254.195.0/26 any eq 22 
+  730 permit tcp 10.254.193.0/25 any eq 22 
+  740 permit tcp 10.255.143.0/24 any eq 22 
+  750 permit tcp 10.253.91.0/24 any eq 22 
+  760 permit tcp 10.251.239.0/24 any eq 22 
+  770 remark !
+  780 remark NetBrain (APM0102333)
+  790 remark contact PIAOP@T-Mobile.com
+  800 permit tcp 10.251.210.186/32 any eq 22 
+  810 permit tcp 10.251.242.62/32 any eq 22 
+  820 permit tcp 10.255.175.1/32 any eq 22 
+  830 permit tcp 10.255.131.161/32 any eq 22 
+  840 permit tcp 10.251.211.0/25 any eq 22 
+  850 permit tcp 10.255.174.128/25 any eq 22 
+  860 remark !
+  870 remark LMTS
+  880 remark Last Mile Transport Scripting (APM0102982)
+  900 permit tcp 10.251.107.112/32 any eq 22 
+  910 permit tcp 10.253.129.115/32 any eq 22 
+  920 permit tcp 10.253.164.141/32 any eq 22 
+  930 remark !
+  940 remark NetMRI
+  950 permit tcp 10.255.237.0/24 any eq 22 
+  960 permit tcp 10.251.109.0/24 any eq 22 
+  970 remark !
+  980 remark Jumpbox and MISC tooling servers
+  990 permit tcp 10.252.197.115/32 any eq 22 
+  1000 permit tcp 10.246.152.38/32 any eq 22 
+  1010 permit tcp 10.247.222.21/32 any eq 22 
+  1020 permit tcp 10.253.135.10/32 any eq 22 
+  1030 permit tcp 10.253.84.86/32 any eq 22 
+  1040 permit tcp 10.254.197.46/32 any eq 22 
+  1050 permit tcp 5.220.5.220/32 any eq 22 
+  1060 permit tcp 10.246.89.209/32 any eq 22 
+  1070 permit tcp 10.251.82.168/32 any eq 22 
+  1080 remark !
+  1090 remark SNMP
+  1100 remark Cacti(APM0103699)
+  1110 remark contact nppipperformance@t-mobile.com
+  1120 permit udp 10.253.129.0/24 any eq snmp 
+  1130 remark !
+  1140 remark NetBrain(APM0102333)
+  1150 remark contact PIAOP@T-Mobile.com
+  1160 permit udp 10.251.210.186/32 any eq snmp 
+  1170 permit udp 10.251.242.62/32 any eq snmp 
+  1180 permit udp 10.255.175.1/32 any eq snmp 
+  1190 permit udp 10.255.131.161/32 any eq snmp 
+  1200 permit udp 10.251.211.0/25 any eq snmp 
+  1210 permit udp 10.255.174.128/25 any eq snmp 
+  1220 remark !
+  1230 remark NNMI(APM0101912)
+  1240 remark contact ESD_DevOps_NNMi@T-Mobile.com
+  1250 permit udp 10.254.199.0/26 any eq snmp 
+  1260 permit udp 10.254.197.0/24 any eq snmp 
+  1270 permit udp 10.252.195.0/26 any eq snmp 
+  1280 permit udp 10.252.196.0/25 any eq snmp 
+  1290 permit udp 10.246.89.64/26 any eq snmp 
+  1300 permit udp 10.236.18.0/26 any eq snmp 
+  1310 remark !
+  1320 remark SevOne(APM0101922)
+  1330 remark contact EIS_DevOps_SevOne@T-Mobile.com
+  1340 permit udp 10.247.136.0/24 any eq snmp 
+  1350 permit udp 10.236.18.0/24 any eq snmp 
+  1360 permit udp 10.237.48.0/26 any eq snmp 
+  1370 permit udp 10.247.98.0/26 any eq snmp 
+  1380 permit udp 10.247.116.0/26 any eq snmp 
+  1390 permit udp 10.247.93.0/25 any eq snmp 
+  1400 remark !
+  1410 remark SNOW(APM0103101)
+  1420 remark contact ServiceNow_Team_ITOM_Ops@T-Mobile.com
+  1430 permit udp 10.251.239.0/25 any eq snmp 
+  1440 permit udp 10.252.194.0/26 any eq snmp 
+  1450 permit udp 10.252.195.128/25 any eq snmp 
+  1460 permit udp 10.252.196.64/25 any eq snmp 
+  1470 permit udp 10.252.197.0/24 any eq snmp 
+  1480 permit udp 10.252.199.0/24 any eq snmp 
+  1490 permit udp 10.252.224.128/26 any eq snmp 
+  1500 permit udp 10.252.255.0/26 any eq snmp 
+  1510 permit udp 10.253.130.128/26 any eq snmp 
+  1520 permit udp 10.254.193.0/24 any eq snmp 
+  1530 permit udp 10.254.195.0/26 any eq snmp 
+  1540 permit udp 10.254.196.0/26 any eq snmp 
+  1550 permit udp 10.254.198.64/25 any eq snmp 
+  1560 permit udp 10.254.201.128/25 any eq snmp 
+  1570 permit udp 10.255.129.128/25 any eq snmp 
+  1580 permit udp 10.255.131.0/25 any eq snmp 
+  1590 permit udp 10.255.143.0/26 any eq snmp 
+  1600 remark !
+  1610 remark NetMRI(APM0100391)
+  1620 remark contact EISPerformance@T-Mobile.com
+  1630 permit udp 10.255.237.0/24 any eq snmp 
+  1640 permit udp 10.251.109.0/24 any eq snmp 
+  1650 remark !
+  1660 remark MFNA(APM0100197)
+  1670 remark contact ESD_DevOps_NA@T-Mobile.com
+  1680 permit udp 10.236.16.0/24 any eq snmp 
+  1690 permit udp 10.254.201.0/24 any eq snmp 
+  1700 permit udp 10.247.92.0/26 any eq snmp 
+  1710 permit udp 10.253.134.0/26 any eq snmp 
+  1720 remark !
+  1730 remark Tenable(APM0103909)
+  1740 remark contact VulnerabilityManagement2@T-Mobile.com
+  1750 permit udp 10.247.117.0/26 any eq snmp 
+  1760 permit udp 10.255.233.0/26 any eq snmp 
+  1770 permit udp 10.236.245.0/26 any eq snmp 
+  1780 permit udp 10.237.32.0/26 any eq snmp 
+  1790 remark !
+  1800 remark JumpboxandMISCtoolingservers
+  1810 permit udp 10.252.197.115/32 any eq snmp 
+  1820 permit udp 10.246.152.38/32 any eq snmp 
+  1830 permit udp 10.247.222.21/32 any eq snmp 
+  1840 permit udp 10.253.135.10/32 any eq snmp 
+  1850 permit udp 10.251.106.22/32 any eq snmp 
+  1860 permit udp 10.253.84.86/32 any eq snmp 
+  1870 remark !
+  1880 remark Network Services Orchestrator (APM0102514)
+  1890 remark contact PIAOP@T-Mobile.com
+  1900 permit udp 10.247.137.0/24 any eq snmp 
+  1910 permit udp 10.251.82.0/24 any eq snmp 
+  1920 permit udp 10.251.227.0/26 any eq snmp 
+  1930 permit udp 10.252.159.0/26 any eq snmp 
+  1940 permit udp 10.252.196.0/24 any eq snmp 
+  1950 permit udp 10.246.95.9/32 any eq snmp 
+  1960 permit udp 10.252.158.0/24 any eq snmp 
+  1970 permit udp 10.254.247.0/24 any eq snmp 
+  1980 permit udp 10.251.226.0/24 any eq snmp 
+  1990 permit udp 10.246.89.240/28 any eq snmp 
+  2000 permit udp 10.251.83.0/24 any eq snmp 
+  2010 permit udp 10.252.231.0/24 any eq snmp 
+  2020 permit udp 10.254.246.0/26 any eq snmp 
+  2030 permit udp 5.220.5.220/32 any eq snmp 
+  2040 remark !
+  2050 remark NADCM
+  2060 permit udp 10.250.31.0/25 any eq snmp 
+  2070 permit udp 10.250.31.0/25 any eq 623 
+  2080 permit tcp 10.250.31.0/25 any eq 443 
+  2090 remark !
+  2100 remark Splunk
+  2110 permit tcp 10.255.35.24/32 any 
+  2120 remark SentinelOne
+  2130 permit tcp 10.255.35.96/32 any 
+  2140 remark NVL NDS-S3
+  2150 permit tcp 5.209.35.0/24 any 
+  2160 remark NVL NDS
+  2170 permit tcp 10.244.78.0/25 any 
+  2180 remark USD VM
+  2190 remark contact USD Engineering
+  2200 permit ip 10.251.211.0/31 any 
+  2210 permit ip 10.251.210.255/32 any 
+  2220 permit ip 10.255.174.214/32 any 
+  2230 permit ip 10.255.174.215/32 any 
+  2240 permit ip 10.255.174.216/32 any 
+  2250 remark USD Jumpbox
+  2260 remark contact USD Operations
+  2270 permit ip 10.254.199.208/32 any 
+  2280 remark USD NPC Jumpbox
+  2290 remark contact USD NPC Operations
+  2300 permit ip 10.251.100.95/32 any 
+  2310 permit ip 10.251.80.58/32 any 
+  2320 remark NAP
+  2330 permit tcp any 10.237.136.37/32 eq www 
+  2340 permit tcp any 10.237.134.34/32 eq www 
+  2350 permit tcp any 10.246.134.168/32 eq www 
+  2360 remark IAM
+  2370 permit tcp any 10.237.136.52/32 eq www 
+  2380 permit tcp any 10.246.134.157/32 eq www 
+  2390 remark DENY HIGH RISK PORTS
+  2400 deny tcp any any eq ftp 
+  2410 deny tcp any any eq telnet 
+  2420 deny tcp any any eq smtp 
+  2430 deny tcp any any eq www 
+  2440 deny ospf any any 
+  2450 deny tcp any any eq 3389 
+  2460 remark !
+  2470 remark PERMIT USD to USD
+  2480 permit ip 10.250.89.0/24 any 
+  2490 permit ip 10.250.92.0/24 any 
+  2500 permit ip 10.250.95.0/24 any 
+  2510 permit ip 10.244.184.0/23 any 
+  2520 permit ip 10.244.187.0/24 any 
+  2530 permit ip 10.244.188.0/24 any 
+  2540 permit ip 10.249.235.0/25 any 
+  2550 remark !
+  2560 remark USD System Tools
+  2570 remark contact USD Engineering
+  2580 permit ip 10.244.188.0/24 any 
+  2590 permit ip 10.244.184.128/25 any 
+  2600 remark !
+  2610 permit ip any any log 
+ip access-list QOSa_DTC_VOICE_TRAFFIC
+  10 permit udp any range 16384 32767 172.31.10.134/32 
+ip access-list QOSa_MONITOR-TCP
+  10 permit tcp any any eq 9997 
+  20 permit tcp any eq 9997 any 
+  30 permit ip 165.130.1.8/32 any 
+  40 permit ip 165.130.1.16/32 any 
+  50 permit ip 165.130.1.18/32 any 
+  60 permit ip 165.130.1.19/32 any 
+  70 permit ip 165.130.1.20/32 any 
+  80 permit ip 165.130.1.21/32 any 
+  90 permit tcp any any eq 162 
+  100 permit tcp any eq 162 any 
+  110 permit tcp any any range 1270 5723 
+  120 permit tcp any range 1270 5723 any 
+ip access-list QOSa_VOICE_SIGNALING_DST
+  10 permit udp any any eq 1719 
+  20 permit tcp any any eq 1720 
+  30 permit tcp any any eq 2945 
+ip access-list QOSa_VOICE_SIGNALING_SRC
+  10 permit udp any eq 1719 any 
+  20 permit tcp any eq 1720 any 
+  30 permit tcp any eq 2945 any 
+ip access-list SIPS_Automation_Test_ACL_Create
+  17 permit tcp any 10.247.12.0/24 range ftp telnet 
+ip access-list com-test
+  10 permit ip 130.211.12.239/32 any 
+  20 permit ip 130.211.4.101/32 any 
+  30 permit ip 107.178.253.163/32 any 
+  40 permit ip 130.211.7.124/32 any 
+  50 permit ip 107.178.240.26/32 any 
+  60 permit ip 107.178.253.215/32 any 
+  70 permit ip 107.178.249.254/32 any 
+  80 permit ip 130.211.6.247/32 any 
+  90 permit ip 130.211.7.62/32 any 
+  100 permit ip 107.178.243.253/32 any 
+  110 permit ip 130.211.37.117/32 any 
+  120 permit ip 130.211.35.171/32 any 
+  130 permit ip 130.211.27.38/32 any 
+  140 permit ip 130.211.45.222/32 any 
+  150 permit ip 107.178.241.171/32 any 
+  160 permit ip 35.227.235.92/32 any 
+  170 permit ip 35.201.117.155/32 any 
+  180 permit ip 35.186.195.241/32 any 
+ip access-list smart-install-security-hardening-list
+  10 deny tcp any any eq 4786 
+  20 permit ip any any 
+ip access-list solarwind-pollers
+  10 remark Solarwinds Pollers
+  20 permit ip 151.140.1.128/28 any 
+  30 permit ip 151.140.78.224/32 any 
+  40 permit ip 151.140.78.225/32 any 
+  50 permit ip 151.140.78.221/32 any 
+  60 permit ip 165.130.150.125/32 any 
+  80 permit ip 10.77.99.142/32 any 
+  90 permit ip 10.77.99.144/32 any 
+  100 permit ip 10.69.99.142/32 any 
+  110 permit ip 10.69.99.144/32 any 
+  120 permit ip 10.77.96.83/32 any 
+  130 permit ip 10.66.196.0/26 any 
+  140 permit ip 10.74.196.0/26 any 
+  150 permit ip 10.64.192.0/22 any 
+  160 permit ip 10.72.192.0/22 any 
+ip access-list sprint-mns-snmp-prefixes
+  10 remark applied to the Sprint MNS RO community string
+  20 permit ip 199.11.1.0/24 any 
+  30 permit ip 199.11.21.0/24 any 
+ip access-list thd-snmp-ro
+  10 remark EMS SNMP RO pollers
+  20 permit ip 10.66.196.0/26 any 
+  30 permit ip 10.74.196.0/26 any 
+  40 permit ip 10.77.96.83/32 any 
+  50 permit ip 10.77.99.128/27 any 
+  60 permit ip 151.140.1.186/32 any 
+  70 permit ip 151.140.113.129/32 any 
+  80 permit ip 151.140.14.193/32 any 
+  90 permit ip 151.140.14.194/32 any 
+  100 permit ip 151.140.14.195/32 any 
+  110 permit ip 165.130.150.125/32 any 
+  120 permit ip 10.64.168.0/22 any 
+  130 permit ip 10.64.192.0/21 any 
+  140 permit ip 10.72.168.0/22 any 
+  150 permit ip 10.72.192.0/21 any 
+  160 permit ip 172.26.63.0/24 any 
+  170 permit ip 10.16.33.215/32 any 
+ip access-list thd-snmp-rw
+  10 remark EMS SNMP RW pollers
+  20 permit ip 10.66.196.0/26 any 
+  30 permit ip 10.74.196.0/26 any 
+  40 permit ip 10.16.33.215/32 any 
+ip access-list vty_access
+  10 permit ip 10.16.39.219/32 any 
+  20 permit ip 10.64.169.20/32 any 
+  30 permit ip 10.66.196.0 0.0.0.63 any 
+  40 permit ip 10.69.96.84/32 any 
+  50 permit ip 10.69.99.142/32 any 
+  60 permit ip 10.69.99.144/32 any 
+  70 permit ip 10.74.196.0 0.0.0.63 any 
+  80 permit ip 10.77.96.83/32 any 
+  90 permit ip 10.77.96.84/32 any 
+  100 permit ip 10.77.99.142/32 any 
+  110 permit ip 10.77.99.144/32 any 
+  120 permit ip 151.140.1.128 0.0.0.15 any 
+  130 permit ip 151.140.108.15/32 any 
+  140 permit ip 151.140.12.80/32 any 
+  150 permit ip 165.130.150.125/32 any 
+  160 permit ip 172.28.172.0 0.0.0.255 any 
+  170 permit ip 172.28.235.0 0.0.0.255 any 
+  180 permit ip 192.168.27.0 0.0.0.255 any 
+  190 permit ip 192.168.56.20/32 any 
+  200 permit ip 192.168.56.21/32 any 
+  210 permit ip 192.168.56.22/32 any 
+  220 permit ip 207.11.0.216/32 any 
+  230 permit ip 207.11.0.217/32 any 
+  240 permit ip 151.140.1.186/32 any 
+  250 permit ip 10.72.169.179/32 any 
+  260 permit ip 10.72.169.23/32 any 
+  270 permit ip 10.72.170.87/32 any 
+  280 permit ip 10.64.169.6/32 any 
+  290 permit ip 10.64.168.88/32 any 
+  300 permit ip 10.64.168.92/32 any 
+  310 permit ip 10.69.96.64/26 any 
+  320 permit ip 10.7.131.0 0.0.0.255 any 
+  330 permit ip 10.7.211.0 0.0.0.255 any 
+  340 permit ip 10.97.0.0 0.0.255.255 any 
+  350 permit ip 10.100.0.0 0.0.255.255 any 
+  360 permit ip 10.98.0.0 0.0.255.255 any 
+  370 permit ip 10.101.0.0 0.0.255.255 any 
+  380 permit ip 10.99.0.0 0.0.255.255 any 
+  390 permit ip 10.72.168.116/32 any 
+  400 permit ip 10.64.169.155/32 any 
+  401 permit ip any any 
+class-map type qos match-any QOS-m-VOICE-EF
+  match dscp 46
+  match access-group name QOSa_DTC_VOICE_TRAFFIC
+  match access-group name QOSa_VOICE_SIGNALING_SRC
+  match access-group name QOSa_VOICE_SIGNALING_DST
+class-map type qos match-any QOS-m-BULK-AF11
+  match access-group name QOSa_MONITOR-TCP
+  match dscp 8,10,12,14
+class-map type qos match-any QOS-m-VIDEO-AF41
+  match dscp 32,34,36,38
+class-map type qos match-any EQ-QOS-m-VOICE-EF
+  match dscp 46
+  match access-group name EQ-QOSa_CALL_CENTER_VOICE_TRAFFIC
+  match access-group name EQ-QOSa_VOICE_SIGNALING_SRC
+  match access-group name EQ-QOSa_VOICE_SIGNALING_DST
+  match access-group name EQ-QOSa_CISCO_VOICE_MEDIA
+  match access-group name EQ-QOSa_CORP_PBX_VOICE_TRAFFIC
+  match access-group name EQ-QOSa_STORE_VOICE_TRAFFIC
+class-map type qos match-any EQ-QOS-m-CRITICAL-AF3
+  match dscp 24,26,28,30
+  match access-group name EQ-QOSa_DFC_PRINTING
+  match access-group name EQ-QOSa_WMS_PRINTING
+  match access-group name EQ-QOSa_VOCOLLECT
+  match access-group name EQ-QOSa_WM
+  match access-group name EQ-QOSa_WMS_RF
+  match access-group name EQ-QOSa_YMS_PING
+  match access-group name EQ-QOSa_SOPE_ROPE
+  match access-group name EQ-QOSa_WYN_REMOTE_TO_DC
+  match access-group name EQ-QOSa_WYN_DC_TO_REMOTE
+  match access-group name EQ-QOSa_CROWNBOLT_JDE
+  match access-group name EQ-QOSa_CROWNBOLT_AIMS2JDE
+  match access-group name EQ-QOSa_CROWNBOLT_DATASTAGE
+  match access-group name EQ-QOSa_LOGISTICS_WEBAPPS
+  match access-group name EQ-QOSa_WCS_WMS
+policy-map type qos QOS-P-MARKER
+  class QOS-m-VIDEO-AF41
+    set dscp 34
+  class QOS-m-VOICE-EF
+    set dscp 46
+  class QOS-m-BULK-AF11
+    set dscp 10
+policy-map type qos EQ-QOS-P-MARKER
+  class EQ-QOS-m-VOICE-EF
+    set dscp 46
+  class EQ-QOS-m-CRITICAL-AF3
+    set dscp 26
+copp profile strict
+snmp-server user admin network-admin auth md5 5310215A29088688DCC79E362B136160D74D priv aes-128 164A1E61CC9815034E074ECFF3CFBEA91486 localizedV2key
+snmp-server user cisco network-admin auth md5 17780649A2D2C9BBE57F2177DD38B9F5E762 priv aes-128 52024D34C75E103E5ACA9AA01BFB676165E3 localizedV2key
+rmon event 1 log trap public description FATAL(1) owner PMON@FATAL
+rmon event 2 log trap public description CRITICAL(2) owner PMON@CRITICAL
+rmon event 3 log trap public description ERROR(3) owner PMON@ERROR
+rmon event 4 log trap public description WARNING(4) owner PMON@WARNING
+rmon event 5 log trap public description INFORMATION(5) owner PMON@INFO
+ntp authenticate
+ntp authentication-key 1001 md5 vagwwtKfkv 7
+ntp authentication-key 1002 md5 vagwwtKfkvgthz 7
+ntp logging
+ntp master 2
+no system default switchport
+system default switchport shutdown
+
+vlan 1,100,102,667,2102,2667
+vlan 100
+  name TCAM-STRESS
+vlan 102
+  vn-segment 10102
+vlan 667
+  vn-segment 10667
+vlan 2102
+  vn-segment 20102
+vlan 2667
+  vn-segment 20667
+
+vrf context GI
+  description test-vrf
+vrf context VRF1
+  address-family ipv4 unicast
+    route-target import 64512:200
+vrf context VRF5
+vrf context management
+  ip name-server 192.168.255.1
+  ip route 0.0.0.0/0 192.168.255.1
+vrf context test
+vlan configuration 102,667,2102,2667
+nxapi http port 80
+
+
+interface Vlan1
+  no ip redirects
+  no ipv6 redirects
+
+interface Vlan100
+  no shutdown
+  ip access-group LARGE-ACL in
+  ip address 192.168.100.1/24
+
+interface Ethernet1/1
+  ip access-group NEWX in
+  vrf member GI
+  ip address 192.168.100.1/24
+  ipv6 address 2001:db8:8086:5554::1/31
+  no shutdown
+
+interface Ethernet1/2
+  switchport
+  switchport access vlan 100
+  no shutdown
+
+interface Ethernet1/3
+  ip access-group EQ-QOSa_WMS_PRINTING in
+
+interface Ethernet1/4
+  ip access-group EQ-QOSa_CALL_CENTER_VOICE_TRAFFIC in
+
+interface Ethernet1/5
+
+interface Ethernet1/6
+
+interface Ethernet1/7
+
+interface Ethernet1/8
+
+interface Ethernet1/9
+
+interface Ethernet1/10
+
+interface Ethernet1/11
+
+interface Ethernet1/12
+
+interface Ethernet1/13
+
+interface Ethernet1/14
+
+interface Ethernet1/15
+
+interface Ethernet1/16
+
+interface Ethernet1/17
+
+interface Ethernet1/18
+
+interface Ethernet1/19
+
+interface Ethernet1/20
+
+interface Ethernet1/21
+
+interface Ethernet1/22
+
+interface Ethernet1/23
+
+interface Ethernet1/24
+
+interface Ethernet1/25
+
+interface Ethernet1/26
+
+interface Ethernet1/27
+
+interface Ethernet1/28
+
+interface Ethernet1/29
+
+interface Ethernet1/30
+
+interface Ethernet1/31
+
+interface Ethernet1/32
+
+interface Ethernet1/33
+
+interface Ethernet1/34
+
+interface Ethernet1/35
+
+interface Ethernet1/36
+
+interface Ethernet1/37
+
+interface Ethernet1/38
+
+interface Ethernet1/39
+
+interface Ethernet1/40
+
+interface Ethernet1/41
+
+interface Ethernet1/42
+
+interface Ethernet1/43
+
+interface Ethernet1/44
+
+interface Ethernet1/45
+
+interface Ethernet1/46
+
+interface Ethernet1/47
+
+interface Ethernet1/48
+
+interface Ethernet1/49
+
+interface Ethernet1/50
+
+interface Ethernet1/51
+
+interface Ethernet1/52
+
+interface Ethernet1/53
+
+interface Ethernet1/54
+
+interface Ethernet1/55
+
+interface Ethernet1/56
+
+interface Ethernet1/57
+
+interface Ethernet1/58
+
+interface Ethernet1/59
+
+interface Ethernet1/60
+
+interface Ethernet1/61
+
+interface Ethernet1/62
+
+interface Ethernet1/63
+
+interface Ethernet1/64
+
+interface mgmt0
+  ip address dhcp
+  ip access-group NEWX in
+  vrf member management
+icam monitor scale
+
+line console
+line vty
+boot nxos bootflash:/nxos64-cs.10.3.1.F.bin 
+router ospfv3 1
+  router-id 1.1.1.1
+router bgp 123
+  router-id 1.1.1.1
+  neighbor 192.168.1.0
+    local-as 65022 no-prepend replace-as dual-as
+  vrf bgp_vrf
+    local-as 651002
+    address-family ipv4 unicast
+      network 13.33.33.37/32
+    neighbor 192.168.1.1
+      remote-as 65000
+      local-as 65024 no-prepend replace-as
+      address-family ipv4 unicast
