@@ -4,7 +4,7 @@
 
 version 10.3(1) Bios:version  
 hostname NXOS-RTR1
-vdc NXOS-RTR1 id 1
+vdc NXOS-SW1 id 1
   limit-resource vlan minimum 16 maximum 4094
   limit-resource vrf minimum 2 maximum 4096
   limit-resource port-channel minimum 0 maximum 511
