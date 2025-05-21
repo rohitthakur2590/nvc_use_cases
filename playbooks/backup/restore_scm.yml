@@ -1,10 +1,10 @@
-- name: Create Network Backup Play
+- name: Create Network Restore Play
   hosts: network
   gather_facts: false
   tasks:
-    - name: Create Network Backup
+    - name: Restore network config from saved config
       ansible.builtin.include_role:
-        name: network.backup.backup
+        name: network.backup.restore
       vars:
         data_store:
           scm:
