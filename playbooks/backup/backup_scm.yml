@@ -1,11 +1,10 @@
 - name: Create Network Backup Play
   hosts: network
   tasks:
-    - name: Create Network Backup
+    - name: Create Network Backup and Push to GitHub
       ansible.builtin.include_role:
         name: network.backup.backup
       vars:
-        operation: backup
         data_store:
           scm:
             origin:
