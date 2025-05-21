@@ -1,11 +1,11 @@
 - name: Create Network Backup Play
   hosts: network
+  gather_facts: false
   tasks:
     - name: Create Network Backup
       ansible.builtin.include_role:
         name: network.backup.backup
       vars:
-        operation: backup
         data_store:
           scm:
             origin:
@@ -14,5 +14,6 @@
                 email: "rohitthakur2590@outlook.com" 
               url: "https://github.com/rohitthakur2590/nvc_use_cases"
               token: "{{ TOKEN }}"
-              path: "safe_snapshot.txt"
-              # path: "rtr1.txt"
+              filename: "ios_21_05_2025.txt"
+              path: "data/summit-2025/backups/21-05-2025/ios"
+              
