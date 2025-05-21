@@ -1,5 +1,5 @@
 - name: Create Network Backup Play
-  hosts: network
+  hosts: rtr1
   gather_facts: false
   tasks:
     - name: Create Network Backup and Push to GitHub
