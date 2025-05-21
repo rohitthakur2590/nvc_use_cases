@@ -1,5 +1,6 @@
 - name: Create Network Backup Play
   hosts: network
+  gather_facts: false
   tasks:
     - name: Create Network Backup and Push to GitHub
       ansible.builtin.include_role:
