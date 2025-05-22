@@ -13,9 +13,9 @@
   #         path: "data/summit-2025/backups/21-05-2025/ios"
   #         filename: "ios_21_05_2025.txt"
   tasks:
-    - name: DEBUG 1 
-      ansible.builtin.debug:
-        msg: "{{ vars }}"
+    # - name: DEBUG 1 
+    #   ansible.builtin.debug:
+    #     msg: "{{ vars }}"
     - name: Create Network Backup and Push to GitHub
       ansible.builtin.include_role:
         name: network.backup.backup
