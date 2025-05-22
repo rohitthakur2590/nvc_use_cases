@@ -1,5 +1,5 @@
 - name: Create Network Backup Play
-  hosts: rtr1
+  hosts: network
   gather_facts: false
   # vars:
   #   data_store:
