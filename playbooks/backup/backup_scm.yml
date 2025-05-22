@@ -2,6 +2,9 @@
   hosts: rtr1
   gather_facts: false
   tasks:
+    - name: DEBUG
+      ansible.builtin.debug:
+        msg: "{{ vars }}"
     - name: Create Network Backup and Push to GitHub
       ansible.builtin.include_role:
         name: network.backup.backup
