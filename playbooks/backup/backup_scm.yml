@@ -2,17 +2,29 @@
   hosts: all
   gather_facts: false
   tasks:
-    - name: Create Network Backup and Push to GitHub
-      ansible.builtin.include_role:
-        name: network.backup.backup
-      vars:
+    - name: Set data_store as host-level variable
+      ansible.builtin.set_fact:
         data_store:
           scm:
             origin:
               user:
                 name: "rohitthakur2590"
-                email: "rohitthakur2590@outlook.com" 
+                email: "rohitthakur2590@outlook.com"
               url: "https://github.com/rohitthakur2590/nvc_use_cases"
               token: "{{ github_ghp }}"
               path: "data/summit-2025/backups/21-05-2025/ios"
               filename: "ios_21_05_2025.txt"
+    - name: Create Network Backup and Push to GitHub
+      ansible.builtin.include_role:
+        name: network.backup.backup
+      # vars:
+      #   data_store:
+      #     scm:
+      #       origin:
+      #         user:
+      #           name: "rohitthakur2590"
+      #           email: "rohitthakur2590@outlook.com" 
+      #         url: "https://github.com/rohitthakur2590/nvc_use_cases"
+      #         token: "{{ github_ghp }}"
+      #         path: "data/summit-2025/backups/21-05-2025/ios"
+      #         filename: "ios_21_05_2025.txt"
