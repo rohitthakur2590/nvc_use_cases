@@ -10,7 +10,7 @@
             email: "rohitthakur2590@outlook.com" 
           url: "https://github.com/rohitthakur2590/nvc_use_cases"
           token: "{{ lookup('env', 'gh_token') }}"
-          path: "data/data/backups/22-05-2025/ios"
+          path: "data/backups/22-05-2025/ios"
           filename: "ios_22_05_2025.txt"
   tasks:
     - name: Set host-level var (for AAP compatibility)
