@@ -9,7 +9,7 @@
             name: "rohitthakur2590"
             email: "rohitthakur2590@outlook.com" 
           url: "https://github.com/rohitthakur2590/nvc_use_cases"
-          token: "{{ github_ghp }}"
+          token: "{{ lookup('env', 'github_ghp') }}"
           path: "data/summit-2025/backups/21-05-2025/ios"
           filename: "ios_21_05_2025.txt"
   tasks:
