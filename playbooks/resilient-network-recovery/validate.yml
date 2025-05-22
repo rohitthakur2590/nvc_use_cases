@@ -1,0 +1,11 @@
+- name: Validate post-restore network health
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Run health check after restore
+      ansible.builtin.include_role:
+        name: network.healthcheck
+
+    - name: Re-generate compliance report after restore
+      ansible.builtin.include_role:
+        name: network.reports
