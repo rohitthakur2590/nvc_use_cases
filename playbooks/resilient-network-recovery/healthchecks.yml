@@ -1,0 +1,7 @@
+- name: Run network health checks
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Include health check role
+      ansible.builtin.include_role:
+        name: network.healthchecks.interfaces
