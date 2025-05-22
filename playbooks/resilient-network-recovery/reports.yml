@@ -1,0 +1,7 @@
+- name: Generate structured compliance report
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Include report role
+      ansible.builtin.include_role:
+        name: network.reports.persist
