@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 1420 bytes
+Current configuration : 1506 bytes
 !
-! Last configuration change at 09:21:48 UTC Thu May 22 2025 by cisco
+! Last configuration change at 09:50:49 UTC Wed May 28 2025 by cisco
 !
 version 15.2
 service timestamps debug datetime msec
@@ -25,6 +25,7 @@ no aaa new-model
 !
 !
 !
+vtp mode transparent
 !
 !
 !
@@ -43,9 +44,14 @@ spanning-tree extend system-id
 vlan configuration 10
  ipv6 snooping
 !
-vlan 1337
- name Vlan_10
- remote-span
+vlan 500
+  private-vlan association 501
+!
+vlan 890
+ name Test_VLAN
+!
+vlan 899
+  private-vlan isolated
 !
 ! 
 !
