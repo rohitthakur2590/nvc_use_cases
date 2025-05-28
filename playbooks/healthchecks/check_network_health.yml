@@ -7,8 +7,8 @@
       vars:
         cpu_utilization:
           details: true
-          warning_threshold: 80
-          critical_threshold: 90
+          warning_threshold: 0
+          critical_threshold: 0
       register: cpu_result
     
     # - name: Monitor memory utilization
