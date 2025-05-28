@@ -10,7 +10,10 @@
             email: "rohitthakur2590@outlook.com" 
           url: "https://github.com/rohitthakur2590/nvc_use_cases"
           token: "{{ lookup('env', 'gh_token') }}"
-
+  tasks:
+    - name: Set host-level var (for AAP compatibility)
+      set_fact:
+        data_store: "{{ data_store } 
     - name: Invoke persist role
       ansible.builtin.include_role:
         name: network.reports.persist
