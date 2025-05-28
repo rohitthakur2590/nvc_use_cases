@@ -1,6 +1,16 @@
 - name: Persist Network Reports
   hosts: network
   tasks:
+  vars:
+    data_store:
+      scm:
+        origin:
+          user:
+            name: "rohitthakur2590"
+            email: "rohitthakur2590@outlook.com" 
+          url: "https://github.com/rohitthakur2590/nvc_use_cases"
+          token: "{{ lookup('env', 'gh_token') }}"
+
     - name: Invoke persist role
       ansible.builtin.include_role:
         name: network.reports.persist
@@ -10,12 +20,4 @@
           - interfaces
           - l3_interfaces
           - l2_interfaces
-        data_store:
-          scm:
-            parent_directory: "/home/rhel"
-            origin:
-              user:
-                name: "rohitthakur2590"
-                email: "rohitthakur2590@outlook.com" 
-              url: "https://github.com/rohitthakur2590/nvc_use_cases"
-              token: "{{ TOKEN }}"
+
