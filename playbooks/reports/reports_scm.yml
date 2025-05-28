@@ -2,6 +2,11 @@
   hosts: network
   tasks:
   vars:
+    format: json
+    resources:
+      - interfaces
+      - l3_interfaces
+      - l2_interfaces 
     data_store:
       scm:
         origin:
@@ -17,10 +22,3 @@
     - name: Invoke persist role
       ansible.builtin.include_role:
         name: network.reports.persist
-      vars:
-        format: json
-        resources:
-          - interfaces
-          - l3_interfaces
-          - l2_interfaces
-
