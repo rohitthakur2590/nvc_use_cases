@@ -18,7 +18,7 @@
   tasks:
     - name: Set host-level var (for AAP compatibility)
       set_fact:
-        data_store: "{{ data_store } 
+        data_store: "{{ data_store }}"
     - name: Invoke persist role
       ansible.builtin.include_role:
         name: network.reports.persist
