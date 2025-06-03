@@ -1,0 +1,95 @@
+{
+    "device_info": {
+        "ansible_network_os": "cisco.ios.ios",
+        "build_info": {
+            "compiled_by": "sweickge",
+            "compiled_date": "Tue 29-Sep-20 11:53"
+        },
+        "config_register": 257,
+        "device_name": "S1",
+        "hardware": {
+            "serial_number": "9LYOJDDPHUB"
+        },
+        "last_reload_reason": "Unknown reason",
+        "memory": {
+            "free_mb": 538389.34765625,
+            "nvram": "256K",
+            "total_mb": 598207.84375
+        },
+        "reload_reason": "reload",
+        "system_image": "flash0:/vios_l2-adventerprisek9-m"
+    },
+    "interfaces": [
+        {
+            "description": "temp1",
+            "enabled": true,
+            "name": "GigabitEthernet0/0"
+        },
+        {
+            "enabled": true,
+            "name": "GigabitEthernet0/1"
+        },
+        {
+            "enabled": true,
+            "name": "GigabitEthernet0/2"
+        },
+        {
+            "enabled": true,
+            "name": "GigabitEthernet0/3"
+        },
+        {
+            "enabled": true,
+            "name": "Vlan1"
+        }
+    ],
+    "l2_interfaces": [
+        {
+            "mode": "access",
+            "name": "GigabitEthernet0/0"
+        },
+        {
+            "name": "GigabitEthernet0/1"
+        },
+        {
+            "name": "GigabitEthernet0/2"
+        },
+        {
+            "mode": "access",
+            "name": "GigabitEthernet0/3"
+        },
+        {
+            "name": "Vlan1"
+        }
+    ],
+    "l3_interfaces": [
+        {
+            "name": "GigabitEthernet0/0"
+        },
+        {
+            "name": "GigabitEthernet0/1"
+        },
+        {
+            "name": "GigabitEthernet0/2"
+        },
+        {
+            "name": "GigabitEthernet0/3"
+        },
+        {
+            "autostate": true,
+            "ipv4": [
+                {
+                    "dhcp": {
+                        "enable": true
+                    }
+                }
+            ],
+            "name": "Vlan1"
+        }
+    ],
+    "metadata": {
+        "inventory_hostname": "54.190.208.146",
+        "ip": "54.190.208.146",
+        "report_version": "1.0",
+        "timestamp": "2025-06-03T08:23:14Z"
+    }
+}
