@@ -1,0 +1,21 @@
+- name: Create Network Backup Play
+  hosts: all
+  gather_facts: false
+  vars:
+    data_store:
+      scm:
+        origin:
+          user:
+            name: "rohitthakur2590"
+            email: "rohitthakur2590@outlook.com" 
+          url: "https://github.com/rohitthakur2590/nvc_use_cases.git"
+          token: "{{ lookup('env', 'gh_token') }}"
+          path: "data/backups/22-05-2025/ios"
+          filename: "ios_22_05_2025.txt"
+  tasks:
+    - name: Set host-level var (for AAP compatibility)
+      set_fact:
+        data_store: "{{ data_store }}"
+    - name: Create Network Backup and Push to GitHub
+      ansible.builtin.include_role:
+        name: network.backup.backup
