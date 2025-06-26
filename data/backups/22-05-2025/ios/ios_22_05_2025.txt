@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 1420 bytes
+Current configuration : 2196 bytes
 !
-! Last configuration change at 09:21:48 UTC Thu May 22 2025 by cisco
+! Last configuration change at 15:32:57 UTC Sat Jun 21 2025 by cisco
 !
 version 15.2
 service timestamps debug datetime msec
@@ -16,6 +16,11 @@ boot-start-marker
 boot-end-marker
 !
 !
+vrf definition ro
+ !
+ address-family ipv4
+ exit-address-family
+!
 enable password cisco
 !
 username cisco privilege 15 secret 5 $1$ArVR$WP9BJWWEt7tP2KTwO5ny30
@@ -25,11 +30,13 @@ no aaa new-model
 !
 !
 !
+vtp mode transparent
 !
 !
 !
 ip domain-name ansible.lab
 ip cef
+ntp max-associations 34
 ipv6 destination-guard policy DG_POLICY
 no ipv6 cef
 !
@@ -40,12 +47,9 @@ spanning-tree mode pvst
 spanning-tree extend system-id
 !
 !
-vlan configuration 10
- ipv6 snooping
-!
-vlan 1337
- name Vlan_10
- remote-span
+vlan 500
+ name Test_VLAN_Manual
+  private-vlan association 501
 !
 ! 
 !
@@ -107,5 +111,27 @@ line vty 5 15
  login local
  transport input all
 !
+ntp logging
+ntp allow mode control 4
+ntp panic update
+ntp authentication-key 2 md5 14241D0609372F28313A3605230014010C1352 7
+ntp authenticate
+ntp trusted-key 3 - 3
+ntp trusted-key 21
+ntp orphan 4
+ntp mindistance 10
+ntp maxdistance 3
+ntp broadcastdelay 22
+ntp source GigabitEthernet0/1
+ntp access-group ipv6 peer preauth_ipv6_acl kod
+ntp master 4
+ntp peer 172.16.1.10 version 2
+ntp peer 172.16.1.11 key 2 minpoll 5 prefer version 2
+ntp server 172.16.1.12 version 2
+ntp server 172.16.1.13 source GigabitEthernet0/1
+ntp peer ip checkPeerDomainIpv4.com prefer
+ntp peer ipv6 checkPeerDomainIpv6.com
+ntp peer ipv6 testPeerDomainIpv6.com prefer
+ntp server ipv6 checkServerDomainIpv6.com
 !
 end
