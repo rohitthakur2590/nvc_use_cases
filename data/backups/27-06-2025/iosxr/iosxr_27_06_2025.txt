@@ -1,0 +1,147 @@
+Building configuration...
+!! IOS XR Configuration 7.7.1
+!! Last configuration change at Wed Jun 25 05:43:24 2025 by cisco
+!
+hostname iosxr
+username cisco
+ group root-lr
+ group cisco-support
+ password 7 045802150C2E
+!
+username admin
+ group root-lr
+ group cisco-support
+ password 7 0822455D0A16
+!
+username lab
+ group root-lr
+ group cisco-support
+ password 7 05080F1C2243
+!
+username root
+ group root-lr
+ group cisco-support
+!
+aaa authentication login default local
+cdp
+address-family ipv4 unicast
+!
+address-family ipv6 unicast
+!
+line default
+ login authentication default
+ transport input ssh
+!
+call-home
+ service active
+ contact smart-licensing
+ profile CiscoTAC-1
+  active
+  destination transport-method email disable
+  destination transport-method http
+ !
+!
+control-plane
+ management-plane
+  inband
+   interface all
+    allow all
+    allow SSH
+   !
+  !
+ !
+!
+interface Loopback0
+!
+interface MgmtEth0/RP0/CPU0/0
+ ipv4 address dhcp
+!
+interface GigabitEthernet0/0/0/0
+ shutdown
+!
+interface preconfigure GigabitEthernet0/0/0/1
+ shutdown
+!
+interface preconfigure GigabitEthernet0/0/0/3
+!
+interface preconfigure GigabitEthernet1/1/1/1
+ speed 10
+!
+route-policy POLICY_TWO_PARAMS($SPECIFICITY, $GEO_LOCATION)
+  set community (64496:100, 64496:$SPECIFICITY, 64496:$GEO_LOCATION, 65012:174)
+  set local-preference 150
+end-policy
+!
+route-policy SIMPLE_GLOBAL_ROUTE_POLICY
+  set weight 20000
+  set local-preference 200
+  set community (11011:1001) additive
+  apply A_NEW_ROUTE_POLICY
+end-policy
+!
+router static
+ address-family ipv4 unicast
+  0.0.0.0/0 192.168.255.1
+ !
+!
+router ospf LAB3
+ router-id 1.1.1.1
+ network point-to-point
+!
+router ospf MYOSPF
+ area 0
+  interface GigabitEthernet0/0/0/0
+   bfd fast-detect
+   cost 50
+  !
+ !
+!
+router ospfv3 10
+ router-id 1.1.1.1
+ area 11
+  cost 11
+  default-cost 5
+ !
+ area 22
+  default-cost 6
+ !
+!
+router ospfv3 26
+ authentication disable
+!
+router ospfv3 27
+ area 10
+  hello-interval 2
+ !
+!
+router bgp 65137
+ address-family ipv4 unicast
+ !
+ neighbor 192.168.253.1
+  remote-as 65001
+  address-family ipv4 unicast
+   default-originate
+  !
+ !
+ neighbor 192.168.253.2
+  remote-as 65001
+  address-family ipv4 unicast
+   default-originate
+  !
+ !
+ neighbor 192.168.253.3
+  remote-as 65001
+  address-family ipv4 unicast
+   default-originate
+  !
+ !
+ neighbor 192.168.253.4
+  remote-as 65001
+  address-family ipv4 unicast
+   default-originate
+  !
+ !
+!
+ssh timeout 60
+ssh server v2
+end
