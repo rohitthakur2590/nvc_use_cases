@@ -2,7 +2,7 @@ Building configuration...
 !! IOS XR Configuration 7.7.1
 !! Last configuration change at Wed Jun 25 05:43:24 2025 by cisco
 !
-hostname iosxr-router
+hostname iosxr
 username cisco
  group root-lr
  group cisco-support
