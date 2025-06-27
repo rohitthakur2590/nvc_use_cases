@@ -1,6 +1,6 @@
 !Command: show running-config
-!Running configuration last done at: Wed Jun 25 23:47:31 2025
-!Time: Thu Jun 26 00:05:39 2025
+!Running configuration last done at: Thu Jun 26 01:47:42 2025
+!Time: Thu Jun 26 01:53:21 2025
 
 version 10.3(1) Bios:version  
 hostname 54.190.208.146
@@ -13,6 +13,7 @@ vdc 54.190.208.146 id 1
 
 feature nxapi
 feature bash-shell
+feature scp-server
 feature sftp-server
 feature tacacs+
 cfs eth distribute
