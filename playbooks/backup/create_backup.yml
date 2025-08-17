@@ -1,0 +1,19 @@
+- name: Create Network Backup Play
+  hosts: all
+  gather_facts: true
+  tasks:
+ 
+    - name: Create Network Backup and Push to GitHub
+      ansible.builtin.include_role:
+        name: network.backup.backup
+      vars:
+        data_store:
+          scm:
+            origin:
+              user:
+                name: "rohitthakur2590"
+                email: "rohitthakur2590@outlook.com" 
+              url: "https://github.com/rohitthakur2590/nvc_use_cases"
+              token: "{{ lookup('env', 'gh_token') }}"
+              path: "data/backups/17-08-2025/ios"
+              filename: "ios_17_08_2025.txt"  
