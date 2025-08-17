@@ -12,7 +12,7 @@ platform punt-keepalive disable-kernel-core
 platform sslvpn use-pd
 platform console serial
 !
-hostname restored-ios
+hostname ios-device
 !
 boot-start-marker
 boot-end-marker
