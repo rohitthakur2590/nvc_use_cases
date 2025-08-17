@@ -13,6 +13,7 @@
           - "l3_interfaces"
         data_store:
           scm:
+            parent_directory: "/data/ansible-scm"
             origin:
               user:
                 name: "rohitthakur2590"
