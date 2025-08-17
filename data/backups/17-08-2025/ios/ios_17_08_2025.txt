@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 5556 bytes
+Current configuration : 5595 bytes
 !
-! Last configuration change at 11:09:56 UTC Wed Aug 13 2025 by cisco
+! Last configuration change at 11:10:52 UTC Sun Aug 17 2025 by cisco
 !
 version 17.13
 service timestamps debug datetime msec
@@ -117,6 +117,7 @@ crypto pki certificate chain TP-self-signed-4255593166
 !
 !
 license udi pid C8000V sn 9MQ1VO4W4H7
+file prompt quiet
 memory free low-watermark processor 201711
 diagnostic bootup level minimal
 !
@@ -158,6 +159,7 @@ ip forward-protocol nd
 no ip http server
 ip http secure-server
 ip ssh bulk-mode 131072
+ip scp server enable
 !
 !
 !
