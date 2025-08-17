@@ -1,0 +1,21 @@
+---
+- name: generate WEB report
+  hosts: all
+  become: true
+  tasks:
+    - name: Generate report
+      ansible.builtin.include_role:
+        name: network.inventory_reports.generate_report
+      vars:
+        resources:
+          - "interfaces"
+          - "l2_interfaces"
+          - "l3_interfaces"
+        data_store:
+          scm:
+            origin:
+              user:
+                name: "rohitthakur2590"
+                email: "rohitthakur2590@outlook.com" 
+              url: "https://github.com/rohitthakur2590/nvc_use_cases"
+              token: "{{ lookup('env', 'gh_token') }}"
