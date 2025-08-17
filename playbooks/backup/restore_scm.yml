@@ -10,8 +10,8 @@
             email: "rohitthakur2590@outlook.com" 
           url: "https://github.com/rohitthakur2590/nvc_use_cases"
           token: "{{ lookup('env', 'gh_token') }}"
-          filename: "nxos_27_06_2025.txt"
-          path: "data/backups/27-06-2025/nxos"
+          filename: "ios_17_08_2025.txt"
+          path: "data/backups/17-08-2025/ios"
   tasks:
     - name: Set vars
       set_fact:
