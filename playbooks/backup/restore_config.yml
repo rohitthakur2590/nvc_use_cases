@@ -3,9 +3,6 @@
   gather_facts: true
  
   tasks:
-    - name: Set vars
-      set_fact:
-        data_store: "{{ data_store }}"
     - name: Restore network config from saved config
       ansible.builtin.include_role:
         name: network.backup.restore
