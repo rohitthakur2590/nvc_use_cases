@@ -1,0 +1,176 @@
+/* General Styles */
+body {
+  font-family: 'Red Hat Text', sans-serif;
+  background-color: #F5F5F5;
+  color: #151515;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  position: fixed;
+  background: #151515;
+  padding: 30px 20px;
+  color: #EDEDED;
+  font-weight: bold;
+  box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.3);
+  border-right: 2px solid #3A3F44;
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar h2 {
+  font-size: 24px;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #0066CC;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  font-size: 18px;
+  padding: 15px;
+  border-bottom: 1px solid #3A3F44;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.sidebar li:hover {
+  background: #0066CC;
+  color: #FFFFFF;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Content Styling */
+.content {
+  margin-left: 300px;
+  padding: 40px;
+  text-align: center;
+}
+
+/* Header Section */
+.header {
+  background: white;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* Logo */
+.logo {
+  display: block;
+  margin: 0 auto;
+  width: 220px;
+}
+
+/* Section Titles */
+h1 {
+  color: #151515;
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Tabs Styling */
+.tabs {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.tab-button {
+  background-color: #0066CC;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  margin: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.tab-button:hover {
+  background-color: #004080;
+  transform: scale(1.05);
+}
+
+.tab-button.active {
+  background-color: #002A5C;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Tables Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+table th, table td {
+  border: 1px solid #EAEAEA;
+  padding: 16px;
+  text-align: left;
+}
+
+table th {
+  background: #EDEDED;
+  color: #3C3F42;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+table td {
+  color: #151515;
+  font-size: 14px;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #F8F8F8;
+}
+
+tbody tr:hover {
+  background-color: #EAEAEA;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Status Color Coding */
+.enabled {
+  color: #2E8540;
+  font-weight: bold;
+}
+
+.disabled {
+  color: #C9190B;
+  font-weight: bold;
+}
+
+/* Footer Styling */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #151515;
+  color: #EDEDED;
+  font-size: 16px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  border-top: 3px solid #3A3F44;
+}

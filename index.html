@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Automation Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f5f5f5;
+            font-size: 14px; /* Base font size */
+        }
+        .header {
+            background-color: #fff;
+            padding: 15px 20px; /* Slightly reduced padding */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+        }
+        .logo {
+            height: 45px; /* Adjusted size */
+            /* Ensure you have a webpage_logo.png or update path */
+        }
+        h1 {
+            color: #333;
+            margin: 0; /* Remove default margin */
+            font-size: 1.6em;
+            text-align: center;
+            flex-grow: 1; /* Allow title to take space */
+        }
+        h2 {
+            color: #444;
+            margin: 18px 0 12px 0; /* Adjusted margins */
+            border-bottom: 1px solid #eee;
+            padding-bottom: 6px;
+            font-size: 1.3em;
+        }
+        .device-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px; /* Reduced gap */
+            margin: 15px 20px;
+            justify-content: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .device-button {
+            padding: 8px 12px; /* Adjusted padding */
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px; /* Adjusted font size */
+            transition: background-color 0.3s;
+        }
+        .device-button:hover {
+            background-color: #0055aa;
+        }
+        .device-button.active {
+            background-color: #004488;
+            font-weight: bold;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .device-content {
+            display: none; /* Hide all device sections initially */
+            margin: 0 20px 25px 20px; /* Add bottom margin */
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+        .device-content.active {
+            display: block; /* Show only the active device section */
+            opacity: 1;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Add gap between sidebar and main content */
+        }
+        .sidebar {
+            flex: 1;
+            min-width: 240px; /* Adjusted min-width */
+            max-width: 320px; /* Optional: prevent sidebar from getting too wide */
+            background-color: #fff;
+            padding: 15px 20px; /* Adjusted padding */
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px; /* Ensure margin on smaller screens */
+        }
+        .main-content {
+            flex: 3;
+            min-width: 300px;
+            background-color: #fff;
+            padding: 15px 20px; /* Adjusted padding */
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow-x: auto; /* Add horizontal scroll for wide tables */
+        }
+        .pdf-button-container {
+             text-align: center;
+             margin: 15px 0;
+        }
+        .pdf-button {
+            background-color: #d9534f; /* Bootstrap danger red */
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        .pdf-button:hover {
+            background-color: #c9302c;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px; /* Reduced margin */
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .tab-button {
+            padding: 8px 12px;
+            background-color: #f7f7f7; /* Lighter background */
+            border: 1px solid #ddd;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            cursor: pointer;
+            font-size: 13px;
+            color: #337ab7; /* Bootstrap link color */
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .tab-button:hover {
+            background-color: #eee;
+        }
+        .tab-button.active {
+            background-color: #fff; /* Active tab blends with content area */
+            color: #333;
+            border-color: #ddd;
+            border-bottom: 1px solid #fff; /* Hide bottom border to connect with content */
+            margin-bottom: -1px; /* Pull it down slightly */
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none; /* Hide all tab content initially */
+            padding-top: 15px;
+            border: 1px solid #ddd; /* Add border around content */
+            border-top: none; /* Remove top border as tab provides it */
+            padding: 15px; /* Add padding inside content area */
+            background-color: #fff; /* Ensure background */
+            border-radius: 0 0 4px 4px; /* Round bottom corners */
+        }
+        .tab-content.active {
+            display: block; /* Show active tab content */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 6px 8px;
+            text-align: left;
+            vertical-align: top;
+            word-wrap: break-word; /* Prevent long strings from breaking layout */
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            white-space: nowrap; /* Prevent headers from wrapping */
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .enabled {
+            color: #5cb85c; /* Bootstrap success green */
+            font-weight: bold;
+        }
+        .disabled {
+            color: #d9534f; /* Bootstrap danger red */
+            font-weight: bold;
+        }
+        ul {
+            padding-left: 18px; /* Slightly reduced padding */
+            margin-top: 3px;
+            margin-bottom: 3px;
+            list-style: disc;
+        }
+        li {
+            margin-bottom: 2px;
+        }
+        .no-data {
+            font-style: italic;
+            color: #777;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                margin-right: 0;
+                margin-bottom: 20px;
+                max-width: none;
+            }
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .logo {
+                margin-bottom: 10px;
+            }
+            h1 {
+                 font-size: 1.4em; /* Adjust heading size */
+            }
+            .device-selector {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            .device-content {
+                 margin-left: 10px;
+                 margin-right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <!-- Make sure webpage_logo.png exists or use a valid URL -->
+        <img class="logo" src="webpage_logo.png" alt="Automation Platform Logo">
+        <h1>Network Automation Report</h1>
+    </div>
+
+    <!-- Device Selector -->
+    <div class="device-selector">
+                                    <button class="device-button" data-device="rtr1">
+                                            rtr1
+                                    </button>
+                        </div>
+
+    <!-- PDF Download Button -->
+    <div class="pdf-button-container">
+        <button id="download-pdf" class="pdf-button">Download PDF Report (Placeholder)</button>
+        <!-- Note: Actual PDF generation requires a backend or library -->
+    </div>
+
+    <!-- Device Content Sections -->
+        <div class="device-content" id="device-rtr1">
+        <div class="container">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h2>Device Information</h2>
+                                                                                <ul>
+                    <li><b>Hostname:</b> ios</li>
+                    <li><b>Model:</b>  Cisco C8000V</li>
+                    <li><b>OS Type:</b> cisco.ios.ios</li>
+                    <li><b>Serial:</b> 9MQ1VO4W4H7</li>
+                    <li><b>Version:</b> 17.13.01a</li>
+                    <li><b>Mem Free (MB):</b> 1826930.57421875</li>
+                    <li><b>Mem Total (MB):</b> 2017116.1796875</li>
+                                                         </ul>
+
+                <h2>Device IP</h2>
+                <ul>
+                    <li>54.190.208.146</li>
+                </ul>
+                            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Tabs - Only render if facts_all exist -->
+                                <div class="tabs">
+                                                                <button class="tab-button" data-device="rtr1" data-target="interfaces">Interfaces</button>
+                                                                <button class="tab-button" data-device="rtr1" data-target="l2_interfaces">L2 Interfaces</button>
+                                                                <button class="tab-button" data-device="rtr1" data-target="l3_interfaces">L3 Interfaces</button>
+                                                                                                                                        </div>
+
+                <!-- ================== INTERFACES Tab ================== -->
+                                <div id="interfaces-rtr1" class="tab-content">
+                    <h2>Interfaces</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Interface Name</th>
+                                <th>Status</th>
+                                <th>Description</th>
+                                <th>Speed</th>
+                                <th>Duplex</th>
+                                <th>MTU</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                                                                            <tr>
+                                    <td>GigabitEthernet1</td>
+                                                                                                            <td class="enabled">
+                                        Enabled
+                                    </td>
+                                    <td>Management / WAN Interface</td>                                     <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
+                                                                <tr>
+                                    <td>GigabitEthernet2</td>
+                                                                                                            <td class="disabled">
+                                        Disabled
+                                    </td>
+                                    <td></td>                                     <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
+                                                                <tr>
+                                    <td>GigabitEthernet3</td>
+                                                                                                            <td class="disabled">
+                                        Disabled
+                                    </td>
+                                    <td></td>                                     <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
+                                                                <tr>
+                                    <td>GigabitEthernet4</td>
+                                                                                                            <td class="disabled">
+                                        Disabled
+                                    </td>
+                                    <td></td>                                     <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
+                                                                                    </tbody>
+                    </table>
+                </div>
+                 
+                <!-- ================== L2 INTERFACES Tab ================== -->
+                                <div id="l2_interfaces-rtr1" class="tab-content">
+                    <h2>L2 Interfaces - Trunk/Access Ports</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Mode</th>
+                                <th>Access VLAN</th>
+                                <th>Trunk Native VLAN</th>
+                                <th>Trunk Allowed VLANs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                                                                    <tr>
+                                    <td>GigabitEthernet1</td>
+                                    <td>N/A</td>
+                                                                        <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
+                                                            <tr>
+                                    <td>GigabitEthernet2</td>
+                                    <td>N/A</td>
+                                                                        <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
+                                                            <tr>
+                                    <td>GigabitEthernet3</td>
+                                    <td>N/A</td>
+                                                                        <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
+                                                            <tr>
+                                    <td>GigabitEthernet4</td>
+                                    <td>N/A</td>
+                                                                        <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
+                                                                            </tbody>
+                    </table>
+                </div>
+                 
+                <!-- ================== L3 INTERFACES Tab ================== -->
+                                <div id="l3_interfaces-rtr1" class="tab-content">
+                    <h2>L3 Interfaces Configuration</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Interface Name</th>
+                                <th>IPv4 Address/Config</th>
+                                <th>IPv6 Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                                                                    <tr>
+                                    <td>GigabitEthernet1</td>
+                                    <td>
+                                                                                                                                                                                                                                 DHCP Enabled                                                                                                                                                                        </td>
+                                    <td>
+                                                                                                                            Not Configured
+                                                                            </td>
+                                </tr>
+                                                            <tr>
+                                    <td>GigabitEthernet2</td>
+                                    <td>
+                                                                                                                            Not Configured
+                                                                            </td>
+                                    <td>
+                                                                                                                            Not Configured
+                                                                            </td>
+                                </tr>
+                                                            <tr>
+                                    <td>GigabitEthernet3</td>
+                                    <td>
+                                                                                                                            Not Configured
+                                                                            </td>
+                                    <td>
+                                                                                                                            Not Configured
+                                                                            </td>
+                                </tr>
+                                                            <tr>
+                                    <td>GigabitEthernet4</td>
+                                    <td>
+                                                                                                                            Not Configured
+                                                                            </td>
+                                    <td>
+                                                                                                                            Not Configured
+                                                                            </td>
+                                </tr>
+                                                                            </tbody>
+                    </table>
+                </div>
+                 
+                <!-- ================== OSPF INTERFACES Tab ================== -->
+                 
+                <!-- ================== OSPFv2 Tab ================== -->
+                 
+                <!-- ================== OSPFv3 Tab ================== -->
+                 
+                <!-- ================== BGP GLOBAL Tab ================== -->
+    <p class="no-data">Could not load BGP Global facts_all ('bgp_global') for this device (rtr1). Please check Ansible logs for fact gathering issues.</p>
+ 
+                                                                                                                                 <div id="bgp_address_family-rtr1-nodata" class="tab-content">
+                        <p class="no-data">BGP Address Family facts_all ('bgp_address_family') were not gathered for this device.</p>
+                    </div>
+                                                                 
+                                                                                 
+            </div> <!-- End Main Content -->
+        </div> <!-- End Container -->
+    </div> <!-- End Device Content -->
+     
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const devices = document.querySelectorAll('.device-button');
+            const allDeviceContents = document.querySelectorAll('.device-content');
+
+            // Function to show a specific device and its first tab
+            function showDevice(deviceId) {
+                // Hide all device content sections first
+                allDeviceContents.forEach(content => {
+                    content.classList.remove('active');
+                    content.style.display = 'none'; // Ensure it's hidden via style
+                });
+
+                // Find and show the selected device content
+                const selectedDeviceContent = document.getElementById(`device-${deviceId}`);
+                if (selectedDeviceContent) {
+                    selectedDeviceContent.style.display = 'block'; // Make it visible
+                    // Use setTimeout to allow display:block to apply before triggering CSS transition
+                    setTimeout(() => {
+                         selectedDeviceContent.classList.add('active'); // Add class for opacity transition
+                    }, 10); // Small delay is usually sufficient
+
+                    // --- Tab Initialization for the selected device ---
+                    const tabButtons = selectedDeviceContent.querySelectorAll('.tab-button');
+                    const tabContents = selectedDeviceContent.querySelectorAll('.tab-content');
+
+                    // Ensure elements exist before proceeding
+                    if (tabButtons.length > 0) { // Check if there are any tabs to initialize
+                        // Deactivate all tabs and hide all content for this specific device
+                        tabButtons.forEach(btn => btn.classList.remove('active'));
+                        tabContents.forEach(content => content.classList.remove('active'));
+
+                        // Activate the first tab button found
+                        const firstTabButton = tabButtons[0];
+                        firstTabButton.classList.add('active');
+
+                        // Show the corresponding first tab content
+                        const firstTabTargetId = firstTabButton.getAttribute('data-target');
+                        const firstTabContent = selectedDeviceContent.querySelector(`#${firstTabTargetId}-${deviceId}`);
+                        if (firstTabContent) {
+                            firstTabContent.classList.add('active');
+                        } else {
+                            console.warn(`Content for first tab '${firstTabTargetId}-${deviceId}' not found.`);
+                        }
+                    } else {
+                         // If no tabs are present for this device (maybe no specific facts_all gathered?)
+                         console.warn(`No tab buttons found for device ${deviceId}. Check if relevant facts_all were gathered.`);
+                         // Optionally display a message in the main content area if it's empty
+                         const mainContent = selectedDeviceContent.querySelector('.main-content');
+                         // Check if the '.tabs' div itself is missing or empty
+                         const tabsDiv = mainContent.querySelector('.tabs');
+                         if (mainContent && (!tabsDiv || tabsDiv.children.length === 0)) {
+                              // Avoid adding message if it already exists
+                              if (!mainContent.querySelector('.no-tabs-message')) {
+                                 const noTabsMsg = document.createElement('p');
+                                 noTabsMsg.textContent = 'No specific fact sections (like Interfaces, OSPF, BGP, etc.) were found or gathered for this device.';
+                                 noTabsMsg.className = 'no-data no-tabs-message'; // Add class for potential removal/check
+                                 mainContent.insertBefore(noTabsMsg, mainContent.firstChild); // Add message at the top
+                             }
+                         }
+                    }
+                    // --- End Tab Initialization ---
+                } else {
+                    console.error(`Device content element not found for ID: device-${deviceId}`);
+                }
+            }
+
+            // Device button click handlers
+            document.querySelectorAll('.device-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const deviceId = this.getAttribute('data-device');
+                    if (!deviceId) {
+                        console.error("Device button clicked without a 'data-device' attribute.");
+                        return; // Prevent action if data-device is missing
+                    }
+
+                    // Deactivate all device buttons visually
+                    document.querySelectorAll('.device-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    // Activate clicked button visually
+                    this.classList.add('active');
+
+                    // Show selected device content and initialize its tabs
+                    showDevice(deviceId);
+                });
+            });
+
+            // Tab button click handlers (using event delegation on the body for efficiency)
+            document.body.addEventListener('click', function(event) {
+                // Check if the clicked element is a tab button
+                if (event.target.matches('.tab-button')) {
+                    const button = event.target;
+                    const deviceId = button.getAttribute('data-device');
+                    const tabId = button.getAttribute('data-target');
+
+                    if (!deviceId || !tabId) {
+                        console.error("Tab button clicked without 'data-device' or 'data-target'.", button);
+                        return;
+                    }
+
+                    // Find the parent device content section
+                    const deviceContent = document.getElementById(`device-${deviceId}`);
+
+                    if (deviceContent) {
+                         // Deactivate all tabs within this device section
+                        deviceContent.querySelectorAll('.tab-button').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        // Hide all tab content within this device section
+                        deviceContent.querySelectorAll('.tab-content').forEach(content => {
+                            content.classList.remove('active');
+                        });
+
+                        // Activate the clicked tab button
+                        button.classList.add('active');
+
+                        // Find and show the corresponding tab content
+                        const targetContent = deviceContent.querySelector(`#${tabId}-${deviceId}`);
+                        if (targetContent) {
+                            targetContent.classList.add('active');
+                        } else {
+                             console.error(`Tab content element not found for ID: #${tabId}-${deviceId}`);
+                        }
+                    } else {
+                         console.error(`Parent device content not found for device ID: ${deviceId} during tab click.`);
+                    }
+                }
+            });
+
+            // PDF Download Placeholder Handler
+            const pdfButton = document.getElementById('download-pdf');
+            if (pdfButton) { // Check if the button exists
+                pdfButton.addEventListener('click', function() {
+                    alert('PDF generation requires a specific backend library (like WeasyPrint, pdfkit, jsPDF) integrated with Ansible or a separate web service. This button currently serves as a placeholder.');
+                    // Example (if PDF was pre-generated): window.open('network_report.pdf');
+                });
+            } else {
+                // Log if the button isn't found - helps debugging HTML issues
+                console.error("PDF download button (ID 'download-pdf') was not found in the HTML.");
+            }
+
+            // --- Initial Page Load ---
+            // Activate the first device button and show its content
+            if (devices.length > 0) {
+                const firstDeviceButton = devices[0];
+                const firstDeviceId = firstDeviceButton.getAttribute('data-device');
+                if (firstDeviceId) { // Ensure the first button has a device ID
+                    firstDeviceButton.classList.add('active'); // Activate button visually
+                    showDevice(firstDeviceId); // Show content and initialize its tabs
+                } else {
+                     console.error("First device button is missing the 'data-device' attribute.");
+                }
+            } else {
+                console.warn("No device buttons found on the page.");
+                // Optionally display a message if no devices are present (e.g., in the body)
+            }
+            // --- End Initial Page Load ---
+
+        });
+    </script>
+</body>
+</html>
