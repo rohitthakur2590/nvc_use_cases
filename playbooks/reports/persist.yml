@@ -1,15 +1,16 @@
 ---
-- name: generate WEB report
+- name: Persist Network Reports
   hosts: network
-  become: true
   tasks:
-    - name: Generate report
+    - name: Invoke persist role
       ansible.builtin.include_role:
-        name: network.inventory_reports.generate_report
-      vars:
+        name: network.inventory_reports.persist
+      vars: 
+        format: yaml
         resources:
           - "interfaces"
           - "l2_interfaces"
+          - "l3_interfaces"
         data_store:
           scm:
             parent_directory: "/data/ansible-scm"  
