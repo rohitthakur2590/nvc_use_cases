@@ -5,7 +5,7 @@
   tasks:
     - name: Generate report
       ansible.builtin.include_role:
-        name: network.inventory_reports.generate_report
+        name: network.inventory_reports.persist
       vars:
         resources:
           - "interfaces"
