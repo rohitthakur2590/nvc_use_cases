@@ -244,8 +244,8 @@
 
     <!-- Device Selector -->
     <div class="device-selector">
-                                    <button class="device-button" data-device="rtr1">
-                                            rtr1
+                                    <button class="device-button" data-device="iosxr">
+                                            iosxr
                                     </button>
                         </div>
 
@@ -256,19 +256,19 @@
     </div>
 
     <!-- Device Content Sections -->
-        <div class="device-content" id="device-rtr1">
+        <div class="device-content" id="device-iosxr">
         <div class="container">
             <!-- Sidebar -->
             <div class="sidebar">
                 <h2>Device Information</h2>
                                                                                 <ul>
-                    <li><b>Hostname:</b> ios</li>
-                    <li><b>Model:</b>  Cisco C8000V</li>
-                    <li><b>OS Type:</b> cisco.ios.ios</li>
-                    <li><b>Serial:</b> 9MQ1VO4W4H7</li>
-                    <li><b>Version:</b> 17.13.01a</li>
-                    <li><b>Mem Free (MB):</b> 1826930.57421875</li>
-                    <li><b>Mem Total (MB):</b> 2017116.1796875</li>
+                    <li><b>Hostname:</b> ansible_4</li>
+                    <li><b>Model:</b> cisco IOS-XRv 9000</li>
+                    <li><b>OS Type:</b> cisco.iosxr.iosxr</li>
+                    <li><b>Serial:</b> 68C958AD2FB</li>
+                    <li><b>Version:</b> 7.7.1</li>
+                    <li><b>Mem Free (MB):</b> 3545M</li>
+                    <li><b>Mem Total (MB):</b> 6144M</li>
                                                          </ul>
 
                 <h2>Device IP</h2>
@@ -281,13 +281,13 @@
             <div class="main-content">
                 <!-- Tabs - Only render if facts_all exist -->
                                 <div class="tabs">
-                                                                <button class="tab-button" data-device="rtr1" data-target="interfaces">Interfaces</button>
-                                                                <button class="tab-button" data-device="rtr1" data-target="l2_interfaces">L2 Interfaces</button>
-                                                                <button class="tab-button" data-device="rtr1" data-target="l3_interfaces">L3 Interfaces</button>
+                                                                <button class="tab-button" data-device="iosxr" data-target="interfaces">Interfaces</button>
+                                                                <button class="tab-button" data-device="iosxr" data-target="l2_interfaces">L2 Interfaces</button>
+                                                                <button class="tab-button" data-device="iosxr" data-target="l3_interfaces">L3 Interfaces</button>
                                                                                                                                         </div>
 
                 <!-- ================== INTERFACES Tab ================== -->
-                                <div id="interfaces-rtr1" class="tab-content">
+                                <div id="interfaces-iosxr" class="tab-content">
                     <h2>Interfaces</h2>
                     <table>
                         <thead>
@@ -302,16 +302,34 @@
                         </thead>
                         <tbody>
                                                                                             <tr>
-                                    <td>GigabitEthernet1</td>
+                                    <td>Loopback888</td>
+                                                                                                            <td class="disabled">
+                                        Disabled
+                                    </td>
+                                    <td>test for ansible</td>                                     <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
+                                                                <tr>
+                                    <td>Loopback999</td>
                                                                                                             <td class="enabled">
                                         Enabled
                                     </td>
-                                    <td>Management / WAN Interface</td>                                     <td>N/A</td>
+                                    <td></td>                                     <td>N/A</td>
                                     <td>N/A</td>
                                     <td>N/A</td>
                                 </tr>
                                                                 <tr>
-                                    <td>GigabitEthernet2</td>
+                                    <td>MgmtEth0/RP0/CPU0/0</td>
+                                                                                                            <td class="enabled">
+                                        Enabled
+                                    </td>
+                                    <td></td>                                     <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
+                                                                <tr>
+                                    <td>GigabitEthernet0/0/0/0</td>
                                                                                                             <td class="disabled">
                                         Disabled
                                     </td>
@@ -320,18 +338,9 @@
                                     <td>N/A</td>
                                 </tr>
                                                                 <tr>
-                                    <td>GigabitEthernet3</td>
-                                                                                                            <td class="disabled">
-                                        Disabled
-                                    </td>
-                                    <td></td>                                     <td>N/A</td>
-                                    <td>N/A</td>
-                                    <td>N/A</td>
-                                </tr>
-                                                                <tr>
-                                    <td>GigabitEthernet4</td>
-                                                                                                            <td class="disabled">
-                                        Disabled
+                                    <td>GigabitEthernet0/0/0/4.1</td>
+                                                                                                            <td class="enabled">
+                                        Enabled
                                     </td>
                                     <td></td>                                     <td>N/A</td>
                                     <td>N/A</td>
@@ -342,7 +351,7 @@
                 </div>
                  
                 <!-- ================== L2 INTERFACES Tab ================== -->
-                                <div id="l2_interfaces-rtr1" class="tab-content">
+                                <div id="l2_interfaces-iosxr" class="tab-content">
                     <h2>L2 Interfaces - Trunk/Access Ports</h2>
                     <table>
                         <thead>
@@ -356,28 +365,35 @@
                         </thead>
                         <tbody>
                                                                                     <tr>
-                                    <td>GigabitEthernet1</td>
+                                    <td>Loopback888</td>
                                     <td>N/A</td>
                                                                         <td>N/A</td>
                                     <td>N/A</td>
                                     <td>N/A</td>
                                 </tr>
                                                             <tr>
-                                    <td>GigabitEthernet2</td>
+                                    <td>Loopback999</td>
                                     <td>N/A</td>
                                                                         <td>N/A</td>
                                     <td>N/A</td>
                                     <td>N/A</td>
                                 </tr>
                                                             <tr>
-                                    <td>GigabitEthernet3</td>
+                                    <td>MgmtEth0/RP0/CPU0/0</td>
                                     <td>N/A</td>
                                                                         <td>N/A</td>
                                     <td>N/A</td>
                                     <td>N/A</td>
                                 </tr>
                                                             <tr>
-                                    <td>GigabitEthernet4</td>
+                                    <td>GigabitEthernet0/0/0/0</td>
+                                    <td>N/A</td>
+                                                                        <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
+                                                            <tr>
+                                    <td>GigabitEthernet0/0/0/4.1</td>
                                     <td>N/A</td>
                                                                         <td>N/A</td>
                                     <td>N/A</td>
@@ -388,7 +404,7 @@
                 </div>
                  
                 <!-- ================== L3 INTERFACES Tab ================== -->
-                                <div id="l3_interfaces-rtr1" class="tab-content">
+                                <div id="l3_interfaces-iosxr" class="tab-content">
                     <h2>L3 Interfaces Configuration</h2>
                     <table>
                         <thead>
@@ -400,15 +416,7 @@
                         </thead>
                         <tbody>
                                                                                     <tr>
-                                    <td>GigabitEthernet1</td>
-                                    <td>
-                                                                                                                                                                                                                                 DHCP Enabled                                                                                                                                                                        </td>
-                                    <td>
-                                                                                                                            Not Configured
-                                                                            </td>
-                                </tr>
-                                                            <tr>
-                                    <td>GigabitEthernet2</td>
+                                    <td>Loopback888</td>
                                     <td>
                                                                                                                             Not Configured
                                                                             </td>
@@ -417,7 +425,7 @@
                                                                             </td>
                                 </tr>
                                                             <tr>
-                                    <td>GigabitEthernet3</td>
+                                    <td>Loopback999</td>
                                     <td>
                                                                                                                             Not Configured
                                                                             </td>
@@ -426,7 +434,24 @@
                                                                             </td>
                                 </tr>
                                                             <tr>
-                                    <td>GigabitEthernet4</td>
+                                    <td>MgmtEth0/RP0/CPU0/0</td>
+                                    <td>
+                                                                                                                                                                                                                                dhcp                                                                                                                                                                                                                        </td>
+                                    <td>
+                                                                                                                            Not Configured
+                                                                            </td>
+                                </tr>
+                                                            <tr>
+                                    <td>GigabitEthernet0/0/0/0</td>
+                                    <td>
+                                                                                                                            Not Configured
+                                                                            </td>
+                                    <td>
+                                                                                                                            Not Configured
+                                                                            </td>
+                                </tr>
+                                                            <tr>
+                                    <td>GigabitEthernet0/0/0/4.1</td>
                                     <td>
                                                                                                                             Not Configured
                                                                             </td>
@@ -445,9 +470,9 @@
                 <!-- ================== OSPFv3 Tab ================== -->
                  
                 <!-- ================== BGP GLOBAL Tab ================== -->
-    <p class="no-data">Could not load BGP Global facts_all ('bgp_global') for this device (rtr1). Please check Ansible logs for fact gathering issues.</p>
+    <p class="no-data">Could not load BGP Global facts_all ('bgp_global') for this device (iosxr). Please check Ansible logs for fact gathering issues.</p>
  
-                                                                                                                                 <div id="bgp_address_family-rtr1-nodata" class="tab-content">
+                                                                                                                                 <div id="bgp_address_family-iosxr-nodata" class="tab-content">
                         <p class="no-data">BGP Address Family facts_all ('bgp_address_family') were not gathered for this device.</p>
                     </div>
                                                                  
