@@ -1,17 +1,17 @@
 - name: Create Network Restore Play
-  hosts: network
+  hosts: all
   gather_facts: false
   vars:
     data_store:
       scm:
         origin:
           user:
-            name: "rohitthakur2590"
-            email: "rohitthakur2590@outlook.com" 
-          url: "https://github.com/rohitthakur2590/nvc_use_cases"
+            name: "chagrawa123"
+            email: "chagrawa123@outlook.com" 
+          url: "https://github.com/chagrawa123/nvc_use_cases"
           token: "{{ lookup('env', 'gh_token') }}"
-          filename: "ios_17_08_2025.txt"
-          path: "data/backups/17-08-2025/ios"
+          filename: "iosxr_22_09_2025.txt"
+          path: "data/backups/22-09-2025/iosxr"
   tasks:
     - name: Set vars
       set_fact:

@@ -6,12 +6,12 @@
       scm:
         origin:
           user:
-            name: "rohitthakur2590"
-            email: "rohitthakur2590@outlook.com" 
-          url: "https://github.com/rohitthakur2590/nvc_use_cases"
+            name: "chagrawa123"
+            email: "chagrawa123@outlook.com" 
+          url: "https://github.com/chagrawa123/nvc_use_cases"
           token: "{{ lookup('env', 'gh_token') }}"
-          path: "data/backups/22-09-2025/iosxr"
-          filename: "iosxr_22_09_2025.txt"
+          path: "data/backups/22-09-2025/ios"
+          filename: "ios_22_09_2025.txt"
   tasks:
     - name: Set host-level var (for AAP compatibility)
       set_fact:
