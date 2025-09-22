@@ -10,8 +10,8 @@
             email: "chagrawa123@outlook.com" 
           url: "https://github.com/chagrawa123/nvc_use_cases"
           token: "{{ lookup('env', 'gh_token') }}"
-          filename: "ios_17_08_2025.txt"
-          path: "data/backups/17-08-2025/ios"
+          filename: "iosxr_22_09_2025.txt"
+          path: "data/backups/22-09-2025/iosxr"
   tasks:
     - name: Set vars
       set_fact:
