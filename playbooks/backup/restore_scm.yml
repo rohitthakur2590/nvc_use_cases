@@ -1,5 +1,5 @@
 - name: Create Network Restore Play
-  hosts: network
+  hosts: all
   gather_facts: false
   vars:
     data_store:
