@@ -3,7 +3,7 @@ Building configuration...
 !! Last configuration change at Sat Sep 20 08:12:41 2025 by cisco
 !
 ! Set hostname
-hostname ansible_4
+hostname ansible_343
 domain name ansible.com
 username cisco
  group root-lr
