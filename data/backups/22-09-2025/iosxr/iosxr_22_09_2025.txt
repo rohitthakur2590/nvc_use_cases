@@ -1,0 +1,89 @@
+Building configuration...
+!! IOS XR Configuration 7.7.1
+!! Last configuration change at Fri Oct  3 09:09:50 2025 by cisco
+!
+! Set hostname
+hostname aa
+domain name ansible.com
+username cisco
+ group root-lr
+ group cisco-support
+ password 7 070C285F4D06
+!
+username admin
+ group root-lr
+ group cisco-support
+ password 7 110A1016141D
+!
+username lab
+ group root-lr
+ group cisco-support
+ password 7 13061E010803
+!
+username root
+ group root-lr
+ group cisco-support
+!
+! Configure user account
+username ansible
+ group root-lr
+ group cisco-support
+ password 7 1042081B
+!
+aaa authentication login default local
+cdp
+line default
+ login authentication default
+ transport input ssh
+!
+call-home
+ service active
+ contact smart-licensing
+ profile CiscoTAC-1
+  active
+  destination transport-method email disable
+  destination transport-method http
+ !
+!
+control-plane
+ management-plane
+  inband
+   interface all
+    allow all
+    allow SSH
+   !
+  !
+ !
+!
+! Enable NETCONF
+netconf-yang agent
+ ssh
+!
+! Configure loopback interfaces
+interface Loopback888
+ description test for ansible
+ shutdown
+!
+interface Loopback999
+!
+! Configure management interface
+interface MgmtEth0/RP0/CPU0/0
+ cdp
+ ipv4 address dhcp
+!
+interface preconfigure GigabitEthernet0/0/0/4.1
+ encapsulation dot1q 20 second-dot1q 40
+!
+! Configure static routing
+router static
+ address-family ipv4 unicast
+  0.0.0.0/0 192.168.255.1
+ !
+!
+router bgp 65000
+!
+ssh timeout 60
+! Enable SSH server
+ssh server v2
+ssh server netconf vrf default
+end
