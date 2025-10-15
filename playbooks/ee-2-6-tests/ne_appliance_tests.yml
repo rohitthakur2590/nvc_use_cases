@@ -1,0 +1,58 @@
+---
+- hosts: appliance
+  gather_facts: false
+  tasks:
+    - name: Configure login banner with netconf
+      cisco.iosxr.iosxr_banner:
+        banner: login
+        text: |
+          @this is my banner from
+          NETWORK_CLI that contains multiline
+          string@
+        state: present
+      vars:
+        ansible_connection: ansible.netcommon.netconf
+        ansible_network_os: cisco.iosxr.iosxr
+        ansible_ssh_port: 2200
+
+    - name: Configure login banner with network_cli
+      cisco.iosxr.iosxr_banner:
+        banner: login
+        text: |
+          @this is my banner from
+          NETCONF that contains multiline
+          string@
+        state: present
+      vars:
+        ansible_connection: ansible.netcommon.network_cli
+        ansible_network_os: cisco.iosxr.iosxr
+        ansible_ssh_port: 2200
+
+    - name: Configure login banner with network_cli
+      cisco.nxos.nxos_banner:
+        banner: motd
+        text: |
+          this is my banner via
+          NETWORK_CLI for cisco.nxos
+          that contains multiline
+          string
+        state: present
+      vars:
+        ansible_connection: ansible.netcommon.network_cli
+        ansible_network_os: cisco.nxos.nxos
+        ansible_ssh_port: 2092
+
+    - name: Configure login banner with httpapi
+      cisco.nxos.nxos_banner:
+        banner: motd
+        text: |
+          this is my banner via
+          HTTPAPI for cisco.nxos
+          that contains multiline
+          string
+        state: present
+      vars:
+        ansible_connection: ansible.netcommon.httpapi
+        ansible_network_os: cisco.nxos.nxos
+        ansible_httpapi_port: 8092
+        
