@@ -16,7 +16,7 @@
         ansible_ssh_port: 2200
 
     - name: Configure login banner with network_cli
-      ignore_errors: true
+      # ignore_errors: true
       cisco.iosxr.iosxr_banner:
         banner: login
         text: |
@@ -30,7 +30,7 @@
         ansible_ssh_port: 2200
 
     - name: Configure login banner with network_cli
-      ignore_errors: true
+      # ignore_errors: true
       cisco.nxos.nxos_banner:
         banner: motd
         text: |
