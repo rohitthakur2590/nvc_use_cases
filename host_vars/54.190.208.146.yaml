@@ -1,0 +1,65 @@
+all_gathered_resources:
+    device_info:
+        ansible_network_os: cisco.iosxr.iosxr
+        build_info:
+            built_by: ingunawa
+            built_host: iox-ucs-067
+            built_on: Mon Jul 25 02:41:45 PDT 2022
+            label: 7.7.1-0
+            location: /opt/cisco/XR/packages/
+            workspace: /auto/srcarchive12/prod/7.7.1/xrv9k/ws
+        device_name: ansible_4
+        hardware:
+            model: cisco IOS-XRv 9000
+            serial_number: 2426DA5FD53
+        license:
+            count: 1
+            export_status: NOT RESTRICTED
+            name: IOS-XRv-9000-vRouter-VM
+            status: EVAL MODE
+            version: 1.0
+        memory:
+            free_mb: 3314M
+            total_mb: 6144M
+        memory_summary:
+            image_size: 4M
+        os_type: IOS XR
+        version: 7.7.1
+    interfaces:
+    -   description: test for ansible
+        enabled: false
+        name: Loopback888
+    -   description: this is a test
+        enabled: false
+        name: Loopback999
+    -   enabled: true
+        name: MgmtEth0/RP0/CPU0/0
+    -   enabled: false
+        name: GigabitEthernet0/0/0/0
+    -   description: Configured by Ansible
+        duplex: half
+        enabled: true
+        mtu: 110
+        name: GigabitEthernet0/0/0/3
+    -   enabled: true
+        name: GigabitEthernet0/0/0/5
+    l2_interfaces:
+    -   name: Loopback888
+    -   name: Loopback999
+    -   name: MgmtEth0/RP0/CPU0/0
+    -   name: GigabitEthernet0/0/0/0
+    -   name: GigabitEthernet0/0/0/3
+    -   l2protocol:
+        -   cpsv: drop
+        l2transport: true
+        name: GigabitEthernet0/0/0/5
+        propagate: true
+    l3_interfaces:
+    -   name: Loopback888
+    -   name: Loopback999
+    -   ipv4:
+        -   address: dhcp
+        name: MgmtEth0/RP0/CPU0/0
+    -   name: GigabitEthernet0/0/0/0
+    -   name: GigabitEthernet0/0/0/3
+    -   name: GigabitEthernet0/0/0/5
