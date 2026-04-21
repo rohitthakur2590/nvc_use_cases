@@ -1,6 +1,6 @@
 ---
 - name: generate WEB report
-  hosts: all
+  hosts: network
   become: true
   tasks:
     - name: Generate report
