@@ -19,15 +19,15 @@ all_gathered_resources:
             status: EVAL EXPIRED
             version: 1.0
         memory:
-            free_mb: 3387M
+            free_mb: 3386M
             total_mb: 6144M
         memory_summary:
             image_size: 4M
         os_type: IOS XR
         uptime:
             days: 4
-            hours: 8
-            minutes: 25
+            hours: 20
+            minutes: 3
             weeks: 18
         version: 7.7.1
     interfaces:
